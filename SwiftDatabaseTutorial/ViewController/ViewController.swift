@@ -25,6 +25,14 @@ class ViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        {
+            appDelegate.demoFetchUnit()
+        }
+    }
+    
     
 
 }

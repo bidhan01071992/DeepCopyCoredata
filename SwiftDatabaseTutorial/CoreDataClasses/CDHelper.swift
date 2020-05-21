@@ -135,9 +135,9 @@ class CDHelper : NSObject  {
     
     ///Everything is executed within performBlockAndWait to ensure that the contexts are saved on an appropriate thread and in order. The first thing the save class function does is check for unsaved changes. If they exist, the given context is saved. If the context has a parent context, it is saved too. Parent contexts are used for background saving
     class func save(moc:NSManagedObjectContext) {
-
+        //////What if you call those methods from some other queue? If code is executing on some other queue, it can call perform or performBlockAndWait on a managed object context that uses main queue concurrency. The code in that closure executes on the main queue even though the calling code is not on the main queue.
         moc.performAndWait {
-
+            
             if moc.hasChanges {
 
                 do {

@@ -137,14 +137,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Error while fetching measurement data \(error.localizedDescription)")
         }
-        
+    }
+    
+    ///In this function we will fetch data from Unit entity
+    func demoFetchUnit() {
+        let context = CDHelper.shared.context
+        let request = Unit.fetchUnitRequest()
+        do {
+            let units = try context.fetch(request)
+            for unit in units {
+                print("Unit Data - \(String(describing: unit.name))")
+            }
+        } catch {
+            print("Error while fetch data from Unit entity \(error.localizedDescription)")
+        }
     }
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //test purpose
-        _ = CDHelper.shared
+//        _ = CDHelper.shared
 //        insertDemo()
 //        demoDeleteObjects()
 //        fetchDemo()
