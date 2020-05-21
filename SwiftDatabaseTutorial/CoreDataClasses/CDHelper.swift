@@ -28,6 +28,7 @@ class CDHelper : NSObject  {
         let url = fm.containerURL(forSecurityApplicationGroupIdentifier: "group.com.daimler.dataBaseContainer")
         return url
     }()
+    
     lazy var localStoreURL: URL? = {
         
         if let url = self.storesDirectory?.appendingPathComponent("LocalStore.sqlite") {
@@ -36,6 +37,7 @@ class CDHelper : NSObject  {
         }
         return nil
     }()
+    
     lazy var modelURL: URL = {
         let bundle = Bundle.main
 
@@ -87,6 +89,18 @@ class CDHelper : NSObject  {
     ///When the persistent store option NSInferMappingModelAutomaticallyOption is true (1), Core Data still checks to see whether there are any model-mapping files it should use before trying to infer automatically. It is recommended that you disable this setting while you’re testing a mapping model. This way, you can be certain that the mapping model is being used and is functioning correctly.
     lazy var localStore: NSPersistentStore? = {
         //TODO - understand
+        
+        // Don't return a store if it's not compatible with the model
+        ///Currently the localStore variable of CDHelper.swift always tries to return a store. If it tried to return a store that wasn’t compatible with the current model, the application would throw an error. To prevent this, a check is needed to see whether the store needs migrating before it is loaded. This check is needed only when migration is handled manually
+        let useMigrationManager = true
+        if let _localStoreURL = self.localStoreURL {
+            if useMigrationManager == true &&
+                CDMigration.shared.storeExistsAtPath(storeURL: _localStoreURL) &&
+                CDMigration.shared.store(storeURL: _localStoreURL, isCompatibleWithModel: self.model) == false {
+                return nil
+            }
+        }
+        
         let options: [String : Any] = [NSSQLitePragmasOption : ["journal_mode":"DELETE"],
         NSMigratePersistentStoresAutomaticallyOption:1,
         NSInferMappingModelAutomaticallyOption:0]
@@ -108,6 +122,11 @@ class CDHelper : NSObject  {
     }
     ///It creates a constant pointing to self.localStore. Creating this constant starts the chain of events that instantiates the Core Data Stack.
     func setupCoreData() {
+        
+        // Model Migration
+        if let _localStoreURL = self.localStoreURL {
+            CDMigration.shared.migrateStoreIfNecessary(storeURL: _localStoreURL, destinationModel: self.model)
+        }
         _ = self.localStore
     }
     

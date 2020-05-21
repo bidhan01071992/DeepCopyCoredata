@@ -145,12 +145,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //test purpose
         _ = CDHelper.shared
-        insertDemo()
-        demoDeleteObjects()
-        fetchDemo()
-        fetchRequestTemplate()
-        demoInsertMeasurement()
-        demoFetchMeasurement()
+//        insertDemo()
+//        demoDeleteObjects()
+//        fetchDemo()
+//        fetchRequestTemplate()
+//        demoInsertMeasurement()
+//        demoFetchMeasurement()
         return true
     }
 

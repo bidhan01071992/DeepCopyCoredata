@@ -27,6 +27,7 @@
 		846A89BD247623E900E7A3FD /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BB247623E900E7A3FD /* Measurement+CoreDataProperties.swift */; };
 		846A89C1247628BB00E7A3FD /* Amount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */; };
 		847E8281247644D500DBCAFA /* CDMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E8280247644D500DBCAFA /* CDMigration.swift */; };
+		847E82832476538100DBCAFA /* MigrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82822476538100DBCAFA /* MigrationVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		846A89BE2476279000E7A3FD /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Amount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		847E8280247644D500DBCAFA /* CDMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDMigration.swift; sourceTree = "<group>"; };
+		847E82822476538100DBCAFA /* MigrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				843FDC3F24752749002E1D7C /* ViewController.swift */,
+				847E82822476538100DBCAFA /* MigrationVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				846A89BD247623E900E7A3FD /* Measurement+CoreDataProperties.swift in Sources */,
 				846A89BC247623E900E7A3FD /* Measurement+CoreDataClass.swift in Sources */,
 				843FDC5824752FC5002E1D7C /* Model.xcdatamodeld in Sources */,
+				847E82832476538100DBCAFA /* MigrationVC.swift in Sources */,
 				84009BD62476348B00B2C407 /* Amount+CoreDataProperties.swift in Sources */,
 				847E8281247644D500DBCAFA /* CDMigration.swift in Sources */,
 				843FDC3C24752749002E1D7C /* AppDelegate.swift in Sources */,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JHJ-4n-Ixc">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MigrationVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftDatabaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MigrationVC" id="BYZ-38-t0r" customClass="MigrationVC" customModule="SwiftDatabaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,13 +41,47 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="migrationProgress" destination="dZn-QQ-ZyN" id="grj-O3-iBn"/>
-                        <outlet property="progressDataLbl" destination="J4Q-EM-9Oc" id="jRs-yf-peR"/>
+                        <outlet property="migrationProgress" destination="dZn-QQ-ZyN" id="u2q-aE-Wb0"/>
+                        <outlet property="progressDataLbl" destination="J4Q-EM-9Oc" id="zTV-Ry-Qqr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="88"/>
+            <point key="canvasLocation" x="-241" y="88"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="DMZ-d1-POf">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="ehw-rk-iAL" customClass="ViewController" customModule="SwiftDatabaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xHb-gX-JCd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="sOu-1L-gyP"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0SU-Ja-EGG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cos-2d-ArP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1475" y="88"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="buv-df-rhh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JHJ-4n-Ixc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2yC-vA-U3Q">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ehw-rk-iAL" kind="relationship" relationship="rootViewController" id="dZt-EF-hpY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="56r-w1-NAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="718.84057971014499" y="87.723214285714278"/>
         </scene>
     </scenes>
 </document>
