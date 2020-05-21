@@ -1,0 +1,88 @@
+ADDING A MODEL VERSION
+1. Select Model.xcdatamodeld.
+
+2. Click Editor > Add Model Version....
+
+3. Click Finish to accept Model 2 as the version name.
+
+
+The new model Model 2.xcdatamodel starts out as a replica of Model.xcdatamodel.
+After you add the new model version, you still need to set it as the current version before it is used by the application.
+1. Select Model2.xcdatamodel
+2. Got to file inspector
+3.Check for Model Version (Current)
+4. Set as Model2
+
+//////////////////////////////////////////////////////////////////
+
+LIGHTWEIGHT MIGRATION
+Whenever a new model is set as the current version, existing persistent stores must be migrated to use them. This is because the persistent store coordinator tries to use the current model to open the existing store, which fails if the store was created using a previous version of the model. The process of store migration can be handled automatically by passing an options dictionary to a persistent store coordinator when a store is added:
+
+Image When the NSMigratePersistentStoresAutomaticallyOption is true (1) and passed to a persistent store coordinator, Core Data automatically attempts to migrate incompatible persistent stores to the current model.
+
+Image When the NSInferMappingModelAutomaticallyOption is true (1) and passed to a persistent store coordinator, Core Data automatically attempts to infer a best guess at what attributes from the source model entities should end up as attributes in the destination model entities.
+
+Using those persistent store coordinator options together is called lightweight migration
+
+//////////////////////////////////////////////////////////////////
+
+Sometimes, you need more control than what lightweight migration offers. Let’s say, for instance, you want to replace the Measurement entity with another entity called Amount. You also want the abc attribute from the Measurement entity to end up as an xyz attribute in the Amount entity. Any existing abc data should also be migrated to the xyz attribute. To achieve these requirements, you need to create a model mapping to manually specify what maps to where.
+
+When the persistent store option NSInferMappingModelAutomaticallyOption is true (1), Core Data still checks to see whether there are any model-mapping files it should use before trying to infer automatically. It is recommended that you disable this setting while you’re testing a mapping model. This way, you can be certain that the mapping model is being used and is functioning correctly.
+
+Update Groceries as follows to disable automatic model mapping:
+
+1. Set the NSInferMappingModelAutomaticallyOption option in the localStore variable of CDHelper.swift to false by changing the 1 to a 0.
+
+//////////////////////////////////////////////////////////////////
+
+Sometimes, you need more control than what lightweight migration offers. Let’s say, for instance, you want to replace the Measurement entity with another entity called Amount. You also want the abc attribute from the Measurement entity to end up as an xyz attribute in the Amount entity. Any existing abc data should also be migrated to the xyz attribute. To achieve these requirements, you need to create a model mapping to manually specify what maps to where.
+
+When the persistent store option NSInferMappingModelAutomaticallyOption is true (1), Core Data still checks to see whether there are any model-mapping files it should use before trying to infer automatically. It is recommended that you disable this setting while you’re testing a mapping model. This way, you can be certain that the mapping model is being used and is functioning correctly.
+
+1. Set the NSInferMappingModelAutomaticallyOption option in the localStore variable of CDHelper.swift to false by changing the 1 to a 0
+
+2. Add a new model version called Model 3 based on Model 2 (Editor > Add Model Version...).
+
+3. Set Model 3 as the current model version.
+
+4. Select Model 3.xcdatamodel.
+
+5. Delete the Measurement entity.
+
+6. Add a new entity called Amount with a String attribute called xyz.
+
+7. Create an NSManagedObject subclass of the Amount entity. When it comes time to save the class file, don’t forget to save the file in the Data Model group
+
+//////////////////////////////////////////////////////////////////
+
+1. Ensure the Data Model group is selected.
+
+2. Click File > New > File....
+
+3. Select iOS > Core Data > Mapping Model and then click Next.
+
+4. Select Model 2.xcdatamodel as the Source Data Model and then click Next.
+
+5. Select Model 3.xcdatamodel as the Target Data Model and then click Next.
+
+6. Set the mapping model name to save as Model2toModel3.
+
+7. Ensure the target is checked and then click Create.
+
+8. Select Model2toModel3.xcmappingmodel.
+
+
+The mappings you’re presented with are a best guess based on what Core Data can infer on its own. On the left you should see Entity Mappings, showing what source entities map to what destination entities. You should also see in Figure 3.6 how the source Item entity has already inferred that it should map to the destination Item entity, which is a fair assumption. The naming standard of an entity mapping is SourceToDestination. With this in mind, notice the Amount entity doesn’t seem to have a source entity because it never existed in the source model.
+
+1. Select the Amount entity mapping.
+
+2. Click View > Utilities > Show Mapping Model Inspector (if that’s not visible in the menu system, press Option+Image+3).
+3. Set the Source of the Amount entity mapping to Measurement.
+
+Because Measurement was selected as the source entity for the Amount destination entity, the Entity Mapping Name was automatically renamed to MeasurementToAmount. In addition, the mapping type changed from Add to Transform.
+
+//////////////////////////////////////////////////////////////////
+
+
+The Source Fetch option shown at the bottom right allows you to limit the migrated data to the results of a predicated (filtered) fetch. This is useful if you only want a subset of the existing data to be migrated. The predicate format you use here is the same as the format you would use when normally configuring a predicate, except you use $source variables. An example of a predicate that would filter out nil source data from the abc attribute is $source.abc != nil.

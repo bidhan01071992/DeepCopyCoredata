@@ -1,0 +1,111 @@
+
+1) ADDING A MANAGED OBJECT MODEL FILE
+When the model variable is called, it expects that a model file exists at the location given by modelURL. Currently this is not the case. If you called this variable now, the application would terminate because there is no model file.
+Update Groceries as follows to add a Data Model file:
+
+1. Right-click the existing Groceries group and then select New Group.
+
+2. Set the new group name to Data Model.
+
+3. Select the Data Model group.
+
+4. Click File > New > File....
+
+5. Select iOS > Core Data > Data Model and then click Next.
+
+6. Ensure the Groceries target is selected, leave the default filename as Model, and then click Create.
+
+7. Select Model.xcdatamodeld,
+
+
+WHAT IS A MANAGED OBJECT MODEL?
+A managed object model represents a data structure. The terms data structure, schema, object graph, data model, and managed object model may all be used interchangeably because they all mean more or less the same thing. If you were designing a new database without Core Data, you might configure a database schema and refer to it as a “data model.” With Core Data, the focus is (managed) objects. Therefore, instead of calling the schema a data model, you may refer to it as a managed object model. That said, it’s still perfectly appropriate to call it a data model, object graph, schema, or data structure, too!
+
+
+
+
+ENTITIES
+A managed object model is made up of a collection of entity description objects called entities. Entities are the foundation of a managed object model because they are used to logically group data that belongs together. You can think of an entity as an individual cookie cutter used to create managed objects. Once you have managed objects, you can work with data natively in code.
+
+A managed object model can have one or more entities, which varies between applications. Before you can produce managed objects, you first need to design each cookie cutter (entity) appropriately. Designing an entity is similar to traditional database table design.
+
+When designing a database table, you do the following:
+
+1. Configure a table name.
+
+2. Configure fields and set a data type for each one.
+
+When designing an entity, you do this:
+
+1. Configure an entity name.
+
+2. Configure attributes and set a data type for each one.
+
+3. Configure an NSManagedObject subclass based on the entity (optional).
+
+Whereas a table in a database has fields, an entity has attributes. An attribute must have a data type specified (for example, a string or integer). When it comes time to produce a managed object from an entity, you usually create an NSManagedObject subclass based on the entity; however, this is not mandatory. Using an NSManagedObject subclass does have some advantages, though, such as enabling dot notation for your managed objects, which makes your code easier to read and prevents typos. From an NSManagedObject or an NSManagedObject subclass, you create instances to begin working with data as managed objects. In database terms, managed object instances are like a row in a database table. The name of the entity and the name of the NSManagedObject subclass you create from it are usually the same. Attributes you configure in an entity become variables of the managed objects created from them. Figure 2.2 shows how entities are used to map between a persistent store’s database and managed objects.
+
+
+Update Groceries as follows to add an Item entity:
+
+1. Select Model.xcdatamodeld.
+
+2. Click Add Entity.
+
+3. Double-click the new entity and rename it Item.
+
+
+ATTRIBUTES
+An attribute is a property of an entity.
+
+1. Add two attributes to the Item entity by clicking Add Attribute twice.
+
+2. Rename one attribute to name and the other to quantity
+
+
+
+
+
+Binary Data
+If you need to store photos, audio, or some other contiguous BLOB of zeros and ones, you should use the binary data attribute type. When an NSManagedObject subclass is created from an entity containing a binary data attribute, the resulting variable type is NSData.
+
+Depending on the data you’re storing, the approach in converting your data to and from NSData differs. One common scenario is storing photos. To store a photo, you convert a UIImage to NSData using UIImagePNGRepresentation() or UIImageJPEGRepresentation(). To retrieve a photo, you convert the NSData to UIImage using the UIImage class function imageWithData.
+
+Binary Data is a good choice for large files because they can be seamlessly stored outside the database using the Allows External Storage attribute setting. With this setting enabled, Core Data decides whether it is more efficient to store the file inside or outside the database.
+
+
+
+
+
+Transformable
+The transformable attribute data type is used to store a Swift object. This attribute type is a flexible option that allows you to store an instance of any class. An example of a transformable attribute is an instance of UIColor. When an NSManagedObject subclass is created from an entity containing a transformable attribute, the resulting variable type is AnyObject.
+
+For the AnyObject object to make it into the store (and back again), you need to use an instance of NSValueTransformer or an instance of a subclass of NSValueTransformer. This class helps transparently convert the attribute to NSData and back again. This is a reasonably simple process, especially when the class you want to store implements the NSCoding protocol. If it does, the system provides a default transformer that already knows how to archive and unarchive specific objects.
+
+
+
+
+ATTRIBUTE SETTINGS
+
+
+Transient      properties are never written to the persistent store. Although it may seem odd to have a property that is never persisted, there are scenarios where you need a property only in the managed object context. For example, you may want to calculate a value on the fly and then store the result in a transient property. Being in a context allows those properties to benefit from features such as undo and redo.
+
+Optional      properties aren’t required to have a value. All properties are originally created as optional. When a property is not optional, you won’t be able to save the managed object back to the store until the non-optional properties have a valid value.
+
+Indexed       properties are optimized for search efficiency at the cost of additional storage space in the underlying persistent store. This additional space required for the index ranges in size depending on how much data needs indexing. If you’re not going to search on a particular attribute, you can save space by not indexing the attribute.
+
+Validation can be used to ensure illogical data never enters the persistent store. Each of the numerical attribute types has the same validation options, which are minimum and maximum values. Similarly, you can set constraints around string lengths and date ranges, too. It is perfectly fine to have invalid values in a managed object context; as long as these are resolved before save is called. It’s generally a good practice to validate data as soon as a user tries to take focus off an input element, such as a UITextfield.
+
+Reg Ex is short for Regular Expression and goes beyond validating a minimum or maximum string length. Although it can be used to enforce length, it is primarily used to test that an attribute’s string value matches a certain pattern. When Reg Ex validation is configured for an attribute, any related managed object variable values must match the pattern; otherwise, they cannot be written to a persistent store. The pattern match configuration options must conform to the ICU Reg Ex specification. You can find further information about this specification, including valid configuration options, at http://userguide.icu-project.org/strings/regexp.
+
+Default values can be set for all attributes types except transformable and binary data. They are a starting point value used when no other value has been specified. It is best practice to have a default value set on numerical attributes because of the way the backend SQLite database handles null values. Setting an appropriate default value for a string attribute is situational and therefore depends on your requirements. For the date attribute type, you unfortunately cannot configure a default date of “now” in the model editor.
+
+Allows External Storage is used to permit large binary data attribute values to be stored outside the persistent store. It is recommended that you enable this option when storing large media such as photos, audio, or video. Core Data automatically stores large attribute values outside an SQLite persistent store when this option is enabled. This option has no effect when the underlying persistent store is XML (remember, this type of store isn’t supported on iOS).
+
+Index in Spotlight doesn’t do anything for an iOS application. It is used to integrate a Core Data-based Mac application with Spotlight. Spotlight is the search facility available via the magnifying glass in the top-right corner of the screen on a Mac. When a Mac application’s Core Data attribute is indexed in Spotlight, its values can appear in the results of a Spotlight search. When performing the search index, Spotlight looks for the hidden, zero-length files Core Data created that represent records from the persistent store. As indexed attribute values change in the persistent store, the equivalent files outside the store are updated automatically.
+
+Image Store in External Record File duplicates data from the persistent store into an XML representation outside the store. When used in conjunction with Index in Spotlight, this setting causes the index files created for Spotlight to be populated with values. It’s not recommended that you use this option unless you have a specific need to, such as for debugging purposes. If you choose to use external records to feed data to another application, note that the directory structure containing the records is subject to change.
+
+Name properties (of transformable attributes) are used to specify the name of the specific NSValueTransformer subclass that knows how to convert from any class into NSData and back again.
+
+
