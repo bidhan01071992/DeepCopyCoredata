@@ -70,7 +70,7 @@ class CDMigration: NSObject {
     ///When a migration is in progress, the value of the migration manager’s migrationProgress variable is constantly updated. This is information that the user needs to see, so a function is required to react whenever the migrationProgress value changes.
     ///
     ///
-    ///TO-DO -  Add RXSwift here
+    ///TODO -  Add RXSwift here
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if object is NSMigrationManager, let manager = object as? NSMigrationManager {
             if let notification = keyPath {

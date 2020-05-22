@@ -16,5 +16,4 @@ public class Unit: NSManagedObject {
     class func fetchUnitRequest() -> NSFetchRequest<Unit> {
         return fetchRequest()
     }
-
 }

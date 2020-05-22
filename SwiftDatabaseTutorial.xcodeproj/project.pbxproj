@@ -20,8 +20,6 @@
 		843FDC54247527EC002E1D7C /* CDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FDC53247527EC002E1D7C /* CDHelper.swift */; };
 		843FDC5824752FC5002E1D7C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 843FDC5624752FC5002E1D7C /* Model.xcdatamodeld */; };
 		843FDC5A24752FE0002E1D7C /* xcdatamodelHelp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 843FDC5924752FE0002E1D7C /* xcdatamodelHelp.txt */; };
-		843FDC5D24753A36002E1D7C /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FDC5B24753A36002E1D7C /* Item+CoreDataClass.swift */; };
-		843FDC5E24753A36002E1D7C /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FDC5C24753A36002E1D7C /* Item+CoreDataProperties.swift */; };
 		846A89B92476216900E7A3FD /* xcdatamodelMigrationHelp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 846A89B82476216900E7A3FD /* xcdatamodelMigrationHelp.txt */; };
 		846A89BC247623E900E7A3FD /* Measurement+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BA247623E900E7A3FD /* Measurement+CoreDataClass.swift */; };
 		846A89BD247623E900E7A3FD /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BB247623E900E7A3FD /* Measurement+CoreDataProperties.swift */; };
@@ -29,8 +27,12 @@
 		847E8281247644D500DBCAFA /* CDMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E8280247644D500DBCAFA /* CDMigration.swift */; };
 		847E82832476538100DBCAFA /* MigrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82822476538100DBCAFA /* MigrationVC.swift */; };
 		847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */; };
-		847E82892476970400DBCAFA /* Unit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82872476970400DBCAFA /* Unit+CoreDataClass.swift */; };
-		847E828A2476970400DBCAFA /* Unit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82882476970400DBCAFA /* Unit+CoreDataProperties.swift */; };
+		847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */ = {isa = PBXBuildFile; fileRef = 847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */; };
+		847E82982476A73500DBCAFA /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */; };
+		847E82992476A73500DBCAFA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */; };
+		847E829A2476A73500DBCAFA /* Unit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */; };
+		847E829B2476A73500DBCAFA /* Unit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */; };
+		847E829D2476B34200DBCAFA /* CDOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E829C2476B34200DBCAFA /* CDOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +51,6 @@
 		843FDC53247527EC002E1D7C /* CDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDHelper.swift; sourceTree = "<group>"; };
 		843FDC5724752FC5002E1D7C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		843FDC5924752FE0002E1D7C /* xcdatamodelHelp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = xcdatamodelHelp.txt; sourceTree = "<group>"; };
-		843FDC5B24753A36002E1D7C /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
-		843FDC5C24753A36002E1D7C /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		846A89B62475431F00E7A3FD /* SwiftDatabaseTutorial.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDatabaseTutorial.entitlements; sourceTree = "<group>"; };
 		846A89B724761EDA00E7A3FD /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		846A89B82476216900E7A3FD /* xcdatamodelMigrationHelp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = xcdatamodelMigrationHelp.txt; sourceTree = "<group>"; };
@@ -62,8 +62,13 @@
 		847E82822476538100DBCAFA /* MigrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationVC.swift; sourceTree = "<group>"; };
 		847E8284247694F600DBCAFA /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model3toModel4.xcmappingmodel; sourceTree = "<group>"; };
-		847E82872476970400DBCAFA /* Unit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataClass.swift"; sourceTree = "<group>"; };
-		847E82882476970400DBCAFA /* Unit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreDataRelationship.Txt; sourceTree = "<group>"; };
+		847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
+		847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E829C2476B34200DBCAFA /* CDOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +139,7 @@
 			children = (
 				843FDC53247527EC002E1D7C /* CDHelper.swift */,
 				847E8280247644D500DBCAFA /* CDMigration.swift */,
+				847E829C2476B34200DBCAFA /* CDOperation.swift */,
 			);
 			path = CoreDataClasses;
 			sourceTree = "<group>";
@@ -141,20 +147,21 @@
 		843FDC5524752F95002E1D7C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				847E82872476970400DBCAFA /* Unit+CoreDataClass.swift */,
-				847E82882476970400DBCAFA /* Unit+CoreDataProperties.swift */,
+				847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */,
+				847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */,
+				847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */,
+				847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */,
 				846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */,
 				84009BD52476348B00B2C407 /* Amount+CoreDataProperties.swift */,
 				846A89BA247623E900E7A3FD /* Measurement+CoreDataClass.swift */,
 				846A89BB247623E900E7A3FD /* Measurement+CoreDataProperties.swift */,
-				843FDC5B24753A36002E1D7C /* Item+CoreDataClass.swift */,
-				843FDC5C24753A36002E1D7C /* Item+CoreDataProperties.swift */,
 				843FDC5624752FC5002E1D7C /* Model.xcdatamodeld */,
 				84009BD12476341E00B2C407 /* Model2toModel3.xcmappingmodel */,
 				843FDC5924752FE0002E1D7C /* xcdatamodelHelp.txt */,
 				846A89B82476216900E7A3FD /* xcdatamodelMigrationHelp.txt */,
 				84009BD72476384A00B2C407 /* datamodelMappingAdvancedHelp.txt */,
 				847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */,
+				847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -222,6 +229,7 @@
 				84009BD82476384A00B2C407 /* datamodelMappingAdvancedHelp.txt in Resources */,
 				843FDC452475274B002E1D7C /* Assets.xcassets in Resources */,
 				843FDC4324752749002E1D7C /* Main.storyboard in Resources */,
+				847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */,
 				843FDC5A24752FE0002E1D7C /* xcdatamodelHelp.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,22 +241,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				843FDC5E24753A36002E1D7C /* Item+CoreDataProperties.swift in Sources */,
 				846A89C1247628BB00E7A3FD /* Amount+CoreDataClass.swift in Sources */,
-				843FDC5D24753A36002E1D7C /* Item+CoreDataClass.swift in Sources */,
 				843FDC54247527EC002E1D7C /* CDHelper.swift in Sources */,
+				847E829A2476A73500DBCAFA /* Unit+CoreDataClass.swift in Sources */,
 				843FDC4024752749002E1D7C /* ViewController.swift in Sources */,
 				84009BD22476341E00B2C407 /* Model2toModel3.xcmappingmodel in Sources */,
-				847E828A2476970400DBCAFA /* Unit+CoreDataProperties.swift in Sources */,
 				846A89BD247623E900E7A3FD /* Measurement+CoreDataProperties.swift in Sources */,
-				847E82892476970400DBCAFA /* Unit+CoreDataClass.swift in Sources */,
+				847E82982476A73500DBCAFA /* Item+CoreDataClass.swift in Sources */,
 				846A89BC247623E900E7A3FD /* Measurement+CoreDataClass.swift in Sources */,
 				843FDC5824752FC5002E1D7C /* Model.xcdatamodeld in Sources */,
 				847E82832476538100DBCAFA /* MigrationVC.swift in Sources */,
 				84009BD62476348B00B2C407 /* Amount+CoreDataProperties.swift in Sources */,
 				847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */,
+				847E829D2476B34200DBCAFA /* CDOperation.swift in Sources */,
+				847E829B2476A73500DBCAFA /* Unit+CoreDataProperties.swift in Sources */,
 				847E8281247644D500DBCAFA /* CDMigration.swift in Sources */,
 				843FDC3C24752749002E1D7C /* AppDelegate.swift in Sources */,
+				847E82992476A73500DBCAFA /* Item+CoreDataProperties.swift in Sources */,
 				843FDC3E24752749002E1D7C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,12 +463,13 @@
 		843FDC5624752FC5002E1D7C /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */,
 				847E8284247694F600DBCAFA /* Model 4.xcdatamodel */,
 				846A89BE2476279000E7A3FD /* Model 3.xcdatamodel */,
 				846A89B724761EDA00E7A3FD /* Model 2.xcdatamodel */,
 				843FDC5724752FC5002E1D7C /* Model.xcdatamodel */,
 			);
-			currentVersion = 847E8284247694F600DBCAFA /* Model 4.xcdatamodel */;
+			currentVersion = 847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

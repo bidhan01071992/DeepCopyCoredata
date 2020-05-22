@@ -29,7 +29,8 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate
         {
-            appDelegate.demoFetchUnit()
+            //appDelegate.demoItemUnitRelationShipDataEntry()
+            appDelegate.demoDeleteUnitswithDenyDeleteRule()
         }
     }
     

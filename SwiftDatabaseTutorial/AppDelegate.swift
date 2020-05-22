@@ -153,6 +153,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    ///Relationship data entry
+    ///
+    ///In this method some items will be inserter along with its units in Unit entity
+    func demoItemUnitRelationShipDataEntry() {
+        let context = CDHelper.shared.context
+        if let orange = NSEntityDescription.insertNewObject(forEntityName: "Item", into: context) as? Item,
+            let banana = NSEntityDescription.insertNewObject(forEntityName: "Item", into: context) as? Item,
+            let kg = NSEntityDescription.insertNewObject(forEntityName: "Unit", into: context) as? Unit {
+            kg.name = "KG / Kilogram"
+            banana.name = "Banana"
+            banana.quantity = 2.5
+            banana.listed = true
+            banana.unit = kg
+            
+            orange.name = "Orange"
+            orange.quantity = 2
+            orange.unit = kg
+            orange.listed = true
+            
+            print("Inserted \(orange.quantity)\(orange.unit!.name!) of \(orange.name!)")
+            print("Inserted \(banana.quantity)\(banana.unit!.name!) of \(banana.name!)")
+            CDHelper.saveSharedContext()
+        }
+    }
+    
+    ///Fetch number of items, Units by calling objectCountForEntity method in CDOperation class
+    ///
+    ///
+    ///The expected result shows there are two item objects and one unit object in the context. The two item objects are oranges and bananas. Which were inserted in demoItemUnitRelationShipDataEntry, the only unit object is Kg, which both items are related to.
+    func demoDeleteUnitswithDenyDeleteRule() {
+        let context = CDHelper.shared.context
+        //Before Delete fetch the quantities of data
+        _ = CDOperation.objectCountForEntity(entityName: "Item", context: context)
+        _ = CDOperation.objectCountForEntity(entityName: "Unit", context: context)
+        
+        //call objectsForEntity method inorder to first fetch the data from table to delete that
+        //we will fetch the unit MOM where value is kg
+        
+        let predicate = NSPredicate(format: "name == %@", "KG / Kilogram")
+        if let units = CDOperation.objectsForEntity(entityName: "Unit", context: context, filters: predicate, sorts: nil) as? [Unit] {
+            for unit in units {
+                if CDOperation.objectDeletionisValidForObject(object: unit) {
+                   context.delete(unit)
+                }
+                
+            }
+            /// Deny delete rule in place testing that
+            //1.2Save the context the display the changes in persistent store from context
+            //It will throw error as Deny delete rule is in place.
+            //delete rule is only enforced when it comes time to save the context
+            //Even though the save fails, the context still reports that the unit object has been deleted and the delete rule generates an NSCocoaErrorDomain error 1600. This error is an NSValidationRelationshipDeniedDeleteError. To get around it, you need to check that the unit object can be safely deleted before deleting it.
+            CDHelper.saveSharedContext()
+        }
+        print("Deletion complete")
+        //After Delete fetch the quantities of data
+        //
+        //1.1Upon examining the console log, it appears that the Deny delete rule hasn’t worked. What’s going on here? Why are there no units anymore? Shouldn’t the Deny rule have prevented the Kg unit object from being deleted because oranges and bananas are related to it?
+        _ = CDOperation.objectCountForEntity(entityName: "Item", context: context)
+        _ = CDOperation.objectCountForEntity(entityName: "Unit", context: context)
+    }
+    
+    //Nullify will nil the unit in Item entity
+    //Cascade will delete all the items in Item entity
+    //NoAction will just delete the unit and unit will be there in Item entity as Dangling pointer
+    //TODO - Task check all other delete rules by writting different methods
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

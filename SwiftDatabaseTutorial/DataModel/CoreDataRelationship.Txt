@@ -1,0 +1,72 @@
+RELATIONSHIPS
+Relationships link entities. Using relationships in the managed object model introduces a powerful means to connect logical areas of data represented by entities. Using relationships can significantly reduce the capacity requirements of a database. Instead of duplicating the same data in multiple entities, a relationship can be put in place as a pointer to a piece of data so it only needs to be stored once. Although de-duplication is one advantage, the true power of relationships is their capability to allow connections between complex data types.
+
+
+Select Model 5.xcdatamodel.
+
+Change the Editor Style to Graph, as shown in the bottom right-hand corner of Figure 4.1. If the Item and Unit entities are sitting on top of each other, drag them apart.
+
+
+
+Hold down Control and drag a line from the Item entity to the Unit entity. The expected result is shown in Figure 4.1.
+
+By creating a relationship between two entities using the Graph Editor Style, you’ve created an inverse relationship, which means two relationships in opposite directions between two entities. In this case, one relationship is from Item to Unit and the other is from Unit to Item. If instead you created a relationship using the Table Editor Style, the result would only be a one-way relationship. You need to manually add inverse relationships when using the Table Editor Style, provided that is what you want.
+
+With an inverse relationship in place, you can now do the following:
+
+Associate Item managed objects to Unit managed objects.
+
+Associate Unit managed objects to Item managed objects.
+
+This newfound association allows access to the attributes of the related entity through the relationship (for example, item.newRelationship.name). You next need to consider whether each direction of the relationship is To-Many or To-One. Determining this should also help you rename the relationship appropriately. A To-Many relationship allows a potentially unlimited number of destination objects, whereas the alternative limits the allowable number of destination objects to one.
+
+Consider the Item-to-Unit relationship:
+
+Configuring a To-Many relationship from the Item entity to the Unit entity would allow an item to have potentially unlimited units of measurement. This is not ideal because items on a shopping list only need one unit of measurement (such as Kg or pound). Note also that it is possible to configure a maximum number of related objects allowable through a To-Many relationship.
+
+Configuring a To-One relationship from the Item entity to the Unit entity would mean only one unit of measurement can be assigned to an item. This is ideal because items on a shopping list only need one unit of measurement. A good name for the relationship in this direction would therefore be unit. With this new relationship name, you could then use item.unit.name to reference the related unit’s name through the item object.
+
+When you create an inverse relationship, you need to think about both directions.
+
+Again, consider the Unit-to-Item relationship:
+
+Configuring a To-One relationship from the Unit entity to the Item entity would prevent a unit from being used by more than one item. This is not ideal because many items on a shopping list should be able to use the same unit of measurement (such as 2Kg of onions and 1Kg of corn).
+
+Configuring a To-Many relationship from the Unit entity to the Item entity would allow a unit to be used by potentially unlimited items. This is ideal because many items on a shopping list need to use the same unit of measurement. A good name for the relationship in this direction would therefore be items. If you wanted to list all items related to a particular unit, it’s as easy as fetching unit.items to retrieve an NSSet of pointers to each related item.
+
+1. Ensure Model 5.xcdatamodel is selected.
+
+2. Create a Swift NSManagedObect subclass of the Item and Unit entities
+
+////////////////////////////////////////////////////////////////////
+
+Examine Unit+CoreDataProperties.swift and look for the new items variable. The items variable represents a To-Many relationship, so the “many” is provided as an NSSet. The thing to know about an NSSet is that the objects within are not ordered, as opposed to an NSOrderedSet, NSArray, or [AnyObject] Swift array. The ordering of fetched objects is usually set with a sort descriptor passed to a fetch request, which, in contrast, returns an array. If you check the Ordered relationship setting available with a To-Many relationship, the resulting NSManagedObject variable type is an NSOrderedSet. Another difference between an NSSet and arrays to keep in mind is that an NSSet cannot contain duplicate objects.
+
+Examine Item+CoreDataProperties.swift, and notice there is a new unit variable of type Unit. The unit variable represents a To-One relationship, so the “one” is simply the class type of the target entity.
+
+////////////////////////////////////////////////////////////////////
+
+DELETE RULES
+An important relationship setting to be aware of is the delete rule. When an object is deleted, this setting determines what happens to related objects, as detailed here:
+
+DELETE RULES
+An important relationship setting to be aware of is the delete rule. When an object is deleted, this setting determines what happens to related objects, as detailed here:
+
+The Nullify delete rule is a good default for most situations. When an object is deleted and this rule is in place, related objects nil out their relationship to the deleted object. For example, assume a unit object named Kg is related to some item objects. If a Nullify delete rule was set on the items relationship and the Kg unit object was deleted, the related item objects would set their unit variable to nil.
+
+The Cascade delete rule propagates deletions through the relationship. For example, assume a unit object named Kg is related to some item objects. If a Cascade delete rule was set on the items relationship and the Kg unit object was deleted, all the related item objects would be deleted, too.
+
+The Deny delete rule prevents the deletion of an object if it still has related objects. For example, assume a unit object named Kg is related to some item objects. If a Deny delete rule was set on the items relationship and the Kg unit object was deleted, the existence of related item objects would cause a validation error when the context was saved. When you use a Deny delete rule, you need to ensure that there are no related objects at the relationship destination before deleting the source object.
+
+The No Action delete rule is a strange one that actually leaves your object graph in an inconsistent state. If you use this delete rule, it is up to you to manually set the inverse relationship to something valid. Only corner-case situations call for this delete rule.
+
+/////////////////////////////////////////////////////////////////////
+
+ It’s time to see what happens when the Kg unit is deleted when a Deny delete rule is in play.
+1. Select Model 5.xcdatamodel.
+
+2. Select the items relationship in the Unit entity.
+
+3. Set the items relationship Delete Rule to Deny using Data Model Inspector
+
+To delete an object you must specify what object to delete. This means that you first need to fetch it with a fetch request.
