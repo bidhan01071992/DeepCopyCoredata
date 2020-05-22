@@ -29,10 +29,17 @@
 		847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */; };
 		847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */ = {isa = PBXBuildFile; fileRef = 847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */; };
 		847E82982476A73500DBCAFA /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */; };
-		847E82992476A73500DBCAFA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */; };
 		847E829A2476A73500DBCAFA /* Unit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */; };
-		847E829B2476A73500DBCAFA /* Unit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */; };
 		847E829D2476B34200DBCAFA /* CDOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E829C2476B34200DBCAFA /* CDOperation.swift */; };
+		847E82A02477AAFD00DBCAFA /* EntityInheritanceHelp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 847E829F2477AAFD00DBCAFA /* EntityInheritanceHelp.txt */; };
+		847E82A92477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A12477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift */; };
+		847E82AA2477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A22477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift */; };
+		847E82AB2477AD9900DBCAFA /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A32477AD9900DBCAFA /* Location+CoreDataClass.swift */; };
+		847E82AC2477AD9900DBCAFA /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A42477AD9900DBCAFA /* Location+CoreDataProperties.swift */; };
+		847E82AD2477AD9900DBCAFA /* Unit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A52477AD9900DBCAFA /* Unit+CoreDataProperties.swift */; };
+		847E82AE2477AD9900DBCAFA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */; };
+		847E82AF2477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */; };
+		847E82B02477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,10 +72,18 @@
 		847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreDataRelationship.Txt; sourceTree = "<group>"; };
 		847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
 		847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
-		847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataClass.swift"; sourceTree = "<group>"; };
-		847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847E829C2476B34200DBCAFA /* CDOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDOperation.swift; sourceTree = "<group>"; };
+		847E829E2477A9E900DBCAFA /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
+		847E829F2477AAFD00DBCAFA /* EntityInheritanceHelp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EntityInheritanceHelp.txt; sourceTree = "<group>"; };
+		847E82A12477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtShop+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E82A22477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtShop+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E82A32477AD9900DBCAFA /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E82A42477AD9900DBCAFA /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E82A52477AD9900DBCAFA /* Unit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,10 +162,16 @@
 		843FDC5524752F95002E1D7C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				847E82A12477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift */,
+				847E82A22477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift */,
+				847E82A32477AD9900DBCAFA /* Location+CoreDataClass.swift */,
+				847E82A42477AD9900DBCAFA /* Location+CoreDataProperties.swift */,
+				847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */,
+				847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */,
 				847E82942476A73500DBCAFA /* Item+CoreDataClass.swift */,
-				847E82952476A73500DBCAFA /* Item+CoreDataProperties.swift */,
+				847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */,
 				847E82962476A73500DBCAFA /* Unit+CoreDataClass.swift */,
-				847E82972476A73500DBCAFA /* Unit+CoreDataProperties.swift */,
+				847E82A52477AD9900DBCAFA /* Unit+CoreDataProperties.swift */,
 				846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */,
 				84009BD52476348B00B2C407 /* Amount+CoreDataProperties.swift */,
 				846A89BA247623E900E7A3FD /* Measurement+CoreDataClass.swift */,
@@ -162,6 +183,7 @@
 				84009BD72476384A00B2C407 /* datamodelMappingAdvancedHelp.txt */,
 				847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */,
 				847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */,
+				847E829F2477AAFD00DBCAFA /* EntityInheritanceHelp.txt */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -231,6 +253,7 @@
 				843FDC4324752749002E1D7C /* Main.storyboard in Resources */,
 				847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */,
 				843FDC5A24752FE0002E1D7C /* xcdatamodelHelp.txt in Resources */,
+				847E82A02477AAFD00DBCAFA /* EntityInheritanceHelp.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847E82B02477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift in Sources */,
+				847E82AB2477AD9900DBCAFA /* Location+CoreDataClass.swift in Sources */,
+				847E82AF2477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift in Sources */,
 				846A89C1247628BB00E7A3FD /* Amount+CoreDataClass.swift in Sources */,
+				847E82AC2477AD9900DBCAFA /* Location+CoreDataProperties.swift in Sources */,
 				843FDC54247527EC002E1D7C /* CDHelper.swift in Sources */,
 				847E829A2476A73500DBCAFA /* Unit+CoreDataClass.swift in Sources */,
 				843FDC4024752749002E1D7C /* ViewController.swift in Sources */,
@@ -254,10 +281,12 @@
 				84009BD62476348B00B2C407 /* Amount+CoreDataProperties.swift in Sources */,
 				847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */,
 				847E829D2476B34200DBCAFA /* CDOperation.swift in Sources */,
-				847E829B2476A73500DBCAFA /* Unit+CoreDataProperties.swift in Sources */,
+				847E82AA2477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift in Sources */,
+				847E82AD2477AD9900DBCAFA /* Unit+CoreDataProperties.swift in Sources */,
+				847E82A92477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift in Sources */,
+				847E82AE2477AD9900DBCAFA /* Item+CoreDataProperties.swift in Sources */,
 				847E8281247644D500DBCAFA /* CDMigration.swift in Sources */,
 				843FDC3C24752749002E1D7C /* AppDelegate.swift in Sources */,
-				847E82992476A73500DBCAFA /* Item+CoreDataProperties.swift in Sources */,
 				843FDC3E24752749002E1D7C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,13 +492,14 @@
 		843FDC5624752FC5002E1D7C /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				847E829E2477A9E900DBCAFA /* Model 6.xcdatamodel */,
 				847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */,
 				847E8284247694F600DBCAFA /* Model 4.xcdatamodel */,
 				846A89BE2476279000E7A3FD /* Model 3.xcdatamodel */,
 				846A89B724761EDA00E7A3FD /* Model 2.xcdatamodel */,
 				843FDC5724752FC5002E1D7C /* Model.xcdatamodel */,
 			);
-			currentVersion = 847E828D2476A11300DBCAFA /* Model 5.xcdatamodel */;
+			currentVersion = 847E829E2477A9E900DBCAFA /* Model 6.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

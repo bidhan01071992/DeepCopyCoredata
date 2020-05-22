@@ -219,6 +219,88 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //NoAction will just delete the unit and unit will be there in Item entity as Dangling pointer
     //TODO - Task check all other delete rules by writting different methods
     
+    ///Insert code to insert data in item with their location at shop and location at home
+    ///
+    ///
+    ///Delete rule is now nullify
+    func demoInsertIntemswithLocation() {
+        let context = CDHelper.shared.context
+        if let mango = NSEntityDescription.insertNewObject(forEntityName: "Item", into: context) as? Item,
+            let locationAtHome = NSEntityDescription.insertNewObject(forEntityName: "LocationAtHome", into: context) as? LocationAtHome,
+            let locationAtShop = NSEntityDescription.insertNewObject(forEntityName: "LocationAtShop", into: context) as? LocationAtShop {
+            locationAtHome.storedIn = "Kitchen"
+            locationAtShop.aisle = "4th"
+            locationAtHome.summary = "Check 4th self in kitchen"
+            locationAtShop.summary = "in the the supermarket shop"
+            mango.name = "Mango"
+            mango.collected = true
+            mango.listed = true
+            mango.quantity = 7.5
+            mango.locationAtHome = locationAtHome
+            mango.locationAtShop = locationAtShop
+            do {
+                let unitRequest = Unit.fetchUnitRequest()
+                let filter = NSPredicate(format: "name == %@", "KG / Kilogram")
+                unitRequest.predicate = filter
+                let kgUnit = try context.fetch(unitRequest).last
+                mango.unit = kgUnit
+            } catch {
+                print("unable to filter fetch from unit entity fro KG element")
+            }
+            print("A new element inserted with name \(String(describing: mango.name)) of quantity \(mango.quantity) \(String(describing: mango.unit?.name)) its there in \(String(describing: mango.locationAtHome?.storedIn)) - \(String(describing: mango.locationAtHome?.summary)), it's also available in \(String(describing: mango.locationAtShop?.aisle)) aisle \(String(describing: mango.locationAtShop?.summary))")
+            CDHelper.saveSharedContext()
+        }
+    }
+    
+    ///Test method to delete the entry made from demoInsertIntemswithLocation
+    ///
+    ///
+    ///We will first make the delete rule as nullify in locationathome and locationatshop relationships
+    ///Then we will check this method
+    ///
+    ///Expected result mango object locationAtShop relation will be null
+    func deletelocationData() {
+        let context = CDHelper.shared.context
+        let locationRequest = Location.locationfetchRequest()
+        let predicate = NSPredicate(format: "aisle == %@", "4th")
+        locationRequest.predicate = predicate
+        do {
+            let locations = try context.fetch(locationRequest)
+            for location in locations {
+                context.delete(location)
+            }
+        } catch {
+            print("Unable to fetch location data")
+        }
+        CDHelper.saveSharedContext()
+    }
+    
+    ///Test method to delete the entry made from demoInsertIntemswithLocation
+    ///
+    ///
+    ///We will first make the delete rule as nullify in locationathome and locationatshop relationships
+    ///Then we will check this method
+    ///Will revert the delete rule to nillify again
+    ///
+    ///
+    ///expected result mango object will be deleted along with location object
+    func deletelocationDatawithCascadeDeleteRule() {
+        let context = CDHelper.shared.context
+        let locationRequest = Location.locationfetchRequest()
+        let predicate = NSPredicate(format: "storedIn == %@", "Kitchen")
+        locationRequest.predicate = predicate
+        do {
+            let locations = try context.fetch(locationRequest)
+            for location in locations {
+                context.delete(location)
+            }
+        } catch {
+            print("Unable to fetch location data")
+        }
+        CDHelper.saveSharedContext()
+    }
+    
+    //MARK: Appdelegate methods
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

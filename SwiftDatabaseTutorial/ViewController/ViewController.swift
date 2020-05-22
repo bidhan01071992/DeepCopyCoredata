@@ -30,7 +30,10 @@ class ViewController: UIViewController {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate
         {
             //appDelegate.demoItemUnitRelationShipDataEntry()
-            appDelegate.demoDeleteUnitswithDenyDeleteRule()
+            //appDelegate.demoDeleteUnitswithDenyDeleteRule()
+            //appDelegate.demoInsertIntemswithLocation()
+            appDelegate.deletelocationData()
+            appDelegate.deletelocationDatawithCascadeDeleteRule()
         }
     }
     

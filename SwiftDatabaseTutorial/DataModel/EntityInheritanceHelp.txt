@@ -1,0 +1,52 @@
+ENTITY INHERITANCE
+Similar to classes, entities have the capability to inherit from a parent. This useful feature allows you to simplify the data model. Child entities automatically inherit the attributes of their parent entity.
+
+For example, let’s say an entity called Location has an attribute called summary. If another entity such as LocationAtHome or LocationAtShop inherits from Location, it automatically has the summary attribute. This behavior is similar to class inheritance.
+
+To prevent the Location entity from ever being instantiated, you have the option of making it abstract. You would do this only if it doesn’t make sense to have instances of the Location entity in your code.
+
+
+1. Add a new model version named Model 6 based on Model 5.
+
+2. Set Model 6 as the Current Model.
+
+3. Select Model 6.xcdatamodel.
+
+4. Add a new entity called Location with a String attribute called summary.
+
+5. Select the Location entity and open up the Data Model Inspector in the Utilities pane
+6. Set the Location entity as an Abstract Entity. This triggers a warning that the Location entity has no children.
+
+7. Add a new entity called LocationAtHome with a String attribute called storedIn.
+
+8. Set the parent entity of the LocationAtHome entity to Location.
+
+9. Add a new entity called LocationAtShop with a String attribute called aisle.
+
+10. Set the parent entity of the LocationAtShop entity to Location.
+
+11. Change the Editor Style to Graph (if it isn’t already) and then arrange the entities
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+With the new parent and child entities in place, it’s time to link them to the Item entity so items can be related to a home or shop location.
+
+1. Hold down Control while dragging a line from the LocationAtHome entity to the Item entity.
+
+2. Rename newRelationship in the LocationAtHome entity to items.
+
+3. Set the items relationship in the LocationAtHome entity to To-Many.
+
+4. Rename newRelationship in the Item entity to locationAtHome.
+
+Update Groceries as follows to configure the location at shop relationships:
+
+1. Hold down Control while dragging a line from the LocationAtShop entity to the Item entity.
+
+2. Rename newRelationship in the LocationAtShop entity to items.
+
+3. Set the items relationship in the LocationAtShop entity to To-Many.
+
+4. Rename newRelationship in the Item entity to locationAtShop.

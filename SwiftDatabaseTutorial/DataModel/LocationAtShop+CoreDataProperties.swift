@@ -1,5 +1,5 @@
 //
-//  Unit+CoreDataProperties.swift
+//  LocationAtShop+CoreDataProperties.swift
 //  SwiftDatabaseTutorial
 //
 //  Created by Roy, Bidhan (623) on 22/05/20.
@@ -11,19 +11,19 @@ import Foundation
 import CoreData
 
 
-extension Unit {
+extension LocationAtShop {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Unit> {
-        return NSFetchRequest<Unit>(entityName: "Unit")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<LocationAtShop> {
+        return NSFetchRequest<LocationAtShop>(entityName: "LocationAtShop")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var aisle: String?
     @NSManaged public var items: NSSet?
 
 }
 
 // MARK: Generated accessors for items
-extension Unit {
+extension LocationAtShop {
 
     @objc(addItemsObject:)
     @NSManaged public func addToItems(_ value: Item)
