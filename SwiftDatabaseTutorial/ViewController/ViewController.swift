@@ -21,7 +21,36 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        ///Demo insert data to show in tableview
         
+        let context = CDHelper.shared.context
+
+        let homeLocations = ["Fruit Bowl","Pantry","Nursery","Bathroom","Fridge"]
+        let shopLocations = ["Produce","Aisle 1","Aisle 2","Aisle 3","Deli"]
+        let unitNames = ["g","pkt","box","ml","kg"]
+        let itemNames = ["Grapes","Biscuits","Nappies","Shampoo","Sausages"]
+
+        var i = 0
+
+        for itemName in itemNames {
+            print("Inserting '\(itemName)'")
+            if let locationAtHome = NSEntityDescription.insertNewObject(forEntityName: "LocationAtHome", into: context) as? LocationAtHome
+                , let locationAtShop = NSEntityDescription.insertNewObject(forEntityName: "LocationAtShop", into: context) as? LocationAtShop
+                , let unit = NSEntityDescription.insertNewObject(forEntityName: "Unit", into: context) as? Unit
+                , let item = NSEntityDescription.insertNewObject(forEntityName: "Item", into: context) as? Item {
+
+                locationAtHome.storedIn = homeLocations[i]
+                locationAtShop.aisle    = shopLocations[i]
+                unit.name = unitNames[i]
+                item.name = itemNames[i]
+                item.locationAtHome = locationAtHome
+                item.locationAtShop = locationAtShop
+                item.unit = unit
+                i += 1
+            } else {"ERROR preparing items in \(#function)"}
+        }
+        print("Test data was inserted")
+        CDHelper.saveSharedContext()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,8 +60,8 @@ class ViewController: UIViewController {
             //appDelegate.demoItemUnitRelationShipDataEntry()
             //appDelegate.demoDeleteUnitswithDenyDeleteRule()
             //appDelegate.demoInsertIntemswithLocation()
-            appDelegate.deletelocationData()
-            appDelegate.deletelocationDatawithCascadeDeleteRule()
+//            appDelegate.deletelocationData()
+//            appDelegate.deletelocationDatawithCascadeDeleteRule()
         }
     }
     
