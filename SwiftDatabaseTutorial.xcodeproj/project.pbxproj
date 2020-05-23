@@ -40,6 +40,8 @@
 		847E82AE2477AD9900DBCAFA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */; };
 		847E82AF2477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */; };
 		847E82B02477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */; };
+		84CAFA9E2477C2F600D39A33 /* CoreDataTableView.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */; };
+		84CAFAA12477E0E900D39A33 /* CDTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAFAA02477E0E900D39A33 /* CDTableController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataClass.swift"; sourceTree = "<group>"; };
 		847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreDataTableView.txt; sourceTree = "<group>"; };
+		84CAFAA02477E0E900D39A33 /* CDTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTableController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,7 @@
 		843FDC3A24752749002E1D7C /* SwiftDatabaseTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				84CAFA9C2477C2B100D39A33 /* Help */,
 				846A89B62475431F00E7A3FD /* SwiftDatabaseTutorial.entitlements */,
 				843FDC5524752F95002E1D7C /* DataModel */,
 				843FDC52247527CC002E1D7C /* CoreDataClasses */,
@@ -155,6 +160,7 @@
 				843FDC53247527EC002E1D7C /* CDHelper.swift */,
 				847E8280247644D500DBCAFA /* CDMigration.swift */,
 				847E829C2476B34200DBCAFA /* CDOperation.swift */,
+				84CAFAA02477E0E900D39A33 /* CDTableController.swift */,
 			);
 			path = CoreDataClasses;
 			sourceTree = "<group>";
@@ -178,14 +184,22 @@
 				846A89BB247623E900E7A3FD /* Measurement+CoreDataProperties.swift */,
 				843FDC5624752FC5002E1D7C /* Model.xcdatamodeld */,
 				84009BD12476341E00B2C407 /* Model2toModel3.xcmappingmodel */,
+				847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		84CAFA9C2477C2B100D39A33 /* Help */ = {
+			isa = PBXGroup;
+			children = (
 				843FDC5924752FE0002E1D7C /* xcdatamodelHelp.txt */,
 				846A89B82476216900E7A3FD /* xcdatamodelMigrationHelp.txt */,
 				84009BD72476384A00B2C407 /* datamodelMappingAdvancedHelp.txt */,
-				847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */,
 				847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */,
 				847E829F2477AAFD00DBCAFA /* EntityInheritanceHelp.txt */,
+				84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */,
 			);
-			path = DataModel;
+			path = Help;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +266,7 @@
 				843FDC452475274B002E1D7C /* Assets.xcassets in Resources */,
 				843FDC4324752749002E1D7C /* Main.storyboard in Resources */,
 				847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */,
+				84CAFA9E2477C2F600D39A33 /* CoreDataTableView.txt in Resources */,
 				843FDC5A24752FE0002E1D7C /* xcdatamodelHelp.txt in Resources */,
 				847E82A02477AAFD00DBCAFA /* EntityInheritanceHelp.txt in Resources */,
 			);
@@ -278,6 +293,7 @@
 				846A89BC247623E900E7A3FD /* Measurement+CoreDataClass.swift in Sources */,
 				843FDC5824752FC5002E1D7C /* Model.xcdatamodeld in Sources */,
 				847E82832476538100DBCAFA /* MigrationVC.swift in Sources */,
+				84CAFAA12477E0E900D39A33 /* CDTableController.swift in Sources */,
 				84009BD62476348B00B2C407 /* Amount+CoreDataProperties.swift in Sources */,
 				847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */,
 				847E829D2476B34200DBCAFA /* CDOperation.swift in Sources */,
