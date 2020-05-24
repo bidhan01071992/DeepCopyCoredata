@@ -51,7 +51,9 @@ class ViewController: UIViewController {
                        item.locationAtShop = locationAtShop
                        item.unit = unit
                        i += 1
-                   } else {"ERROR preparing items in \(#function)"}
+                   } else {
+                    print("ERROR preparing items in")
+                }
                }
                print("Test data was inserted")
                CDHelper.saveSharedContext()
@@ -59,14 +61,14 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        {
-            //appDelegate.demoItemUnitRelationShipDataEntry()
+//        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        {
+//            //appDelegate.demoItemUnitRelationShipDataEntry()
             //appDelegate.demoDeleteUnitswithDenyDeleteRule()
             //appDelegate.demoInsertIntemswithLocation()
 //            appDelegate.deletelocationData()
 //            appDelegate.deletelocationDatawithCascadeDeleteRule()
-        }
+//        }
     }
     
     

@@ -25,6 +25,8 @@
 		846A89BD247623E900E7A3FD /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BB247623E900E7A3FD /* Measurement+CoreDataProperties.swift */; };
 		846A89C1247628BB00E7A3FD /* Amount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */; };
 		847B6BD72479236400176665 /* PrepareTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847B6BD62479236400176665 /* PrepareTVC.swift */; };
+		847B6BD9247A448F00176665 /* CDImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847B6BD8247A448F00176665 /* CDImport.swift */; };
+		847B6BDC247A498200176665 /* preload.xml in Resources */ = {isa = PBXBuildFile; fileRef = 847B6BDB247A498200176665 /* preload.xml */; };
 		847E8281247644D500DBCAFA /* CDMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E8280247644D500DBCAFA /* CDMigration.swift */; };
 		847E82832476538100DBCAFA /* MigrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82822476538100DBCAFA /* MigrationVC.swift */; };
 		847E8286247695A300DBCAFA /* Model3toModel4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 847E8285247695A300DBCAFA /* Model3toModel4.xcmappingmodel */; };
@@ -69,6 +71,8 @@
 		846A89BE2476279000E7A3FD /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		846A89BF247628BB00E7A3FD /* Amount+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Amount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		847B6BD62479236400176665 /* PrepareTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTVC.swift; sourceTree = "<group>"; };
+		847B6BD8247A448F00176665 /* CDImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDImport.swift; sourceTree = "<group>"; };
+		847B6BDB247A498200176665 /* preload.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = preload.xml; sourceTree = "<group>"; };
 		847E8280247644D500DBCAFA /* CDMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDMigration.swift; sourceTree = "<group>"; };
 		847E82822476538100DBCAFA /* MigrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationVC.swift; sourceTree = "<group>"; };
 		847E8284247694F600DBCAFA /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		843FDC3A24752749002E1D7C /* SwiftDatabaseTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				847B6BDA247A496600176665 /* Resources */,
 				84CAFA9C2477C2B100D39A33 /* Help */,
 				846A89B62475431F00E7A3FD /* SwiftDatabaseTutorial.entitlements */,
 				843FDC5524752F95002E1D7C /* DataModel */,
@@ -164,6 +169,7 @@
 				847E8280247644D500DBCAFA /* CDMigration.swift */,
 				847E829C2476B34200DBCAFA /* CDOperation.swift */,
 				84CAFAA02477E0E900D39A33 /* CDTableController.swift */,
+				847B6BD8247A448F00176665 /* CDImport.swift */,
 			);
 			path = CoreDataClasses;
 			sourceTree = "<group>";
@@ -198,6 +204,14 @@
 				847B6BD62479236400176665 /* PrepareTVC.swift */,
 			);
 			path = TableViewController;
+			sourceTree = "<group>";
+		};
+		847B6BDA247A496600176665 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				847B6BDB247A498200176665 /* preload.xml */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		84CAFA9C2477C2B100D39A33 /* Help */ = {
@@ -274,6 +288,7 @@
 				843FDC482475274B002E1D7C /* LaunchScreen.storyboard in Resources */,
 				846A89B92476216900E7A3FD /* xcdatamodelMigrationHelp.txt in Resources */,
 				84009BD82476384A00B2C407 /* datamodelMappingAdvancedHelp.txt in Resources */,
+				847B6BDC247A498200176665 /* preload.xml in Resources */,
 				843FDC452475274B002E1D7C /* Assets.xcassets in Resources */,
 				843FDC4324752749002E1D7C /* Main.storyboard in Resources */,
 				847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */,
@@ -315,6 +330,7 @@
 				847E82AE2477AD9900DBCAFA /* Item+CoreDataProperties.swift in Sources */,
 				847E8281247644D500DBCAFA /* CDMigration.swift in Sources */,
 				843FDC3C24752749002E1D7C /* AppDelegate.swift in Sources */,
+				847B6BD9247A448F00176665 /* CDImport.swift in Sources */,
 				843FDC3E24752749002E1D7C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

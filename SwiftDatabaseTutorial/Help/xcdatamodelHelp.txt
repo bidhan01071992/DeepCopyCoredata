@@ -1,9 +1,9 @@
 
 1) ADDING A MANAGED OBJECT MODEL FILE
 When the model variable is called, it expects that a model file exists at the location given by modelURL. Currently this is not the case. If you called this variable now, the application would terminate because there is no model file.
-Update Groceries as follows to add a Data Model file:
+Update SwiftDatabseTutorial as follows to add a Data Model file:
 
-1. Right-click the existing Groceries group and then select New Group.
+1. Right-click the existing SwiftDatabaseTutorial group and then select New Group.
 
 2. Set the new group name to Data Model.
 
@@ -13,7 +13,7 @@ Update Groceries as follows to add a Data Model file:
 
 5. Select iOS > Core Data > Data Model and then click Next.
 
-6. Ensure the Groceries target is selected, leave the default filename as Model, and then click Create.
+6. Ensure the SwiftDatabaseTutorial target is selected, leave the default filename as Model, and then click Create.
 
 7. Select Model.xcdatamodeld,
 
@@ -46,7 +46,7 @@ When designing an entity, you do this:
 Whereas a table in a database has fields, an entity has attributes. An attribute must have a data type specified (for example, a string or integer). When it comes time to produce a managed object from an entity, you usually create an NSManagedObject subclass based on the entity; however, this is not mandatory. Using an NSManagedObject subclass does have some advantages, though, such as enabling dot notation for your managed objects, which makes your code easier to read and prevents typos. From an NSManagedObject or an NSManagedObject subclass, you create instances to begin working with data as managed objects. In database terms, managed object instances are like a row in a database table. The name of the entity and the name of the NSManagedObject subclass you create from it are usually the same. Attributes you configure in an entity become variables of the managed objects created from them. Figure 2.2 shows how entities are used to map between a persistent store’s database and managed objects.
 
 
-Update Groceries as follows to add an Item entity:
+Update SwiftDatabaseTutorial as follows to add an Item entity:
 
 1. Select Model.xcdatamodeld.
 

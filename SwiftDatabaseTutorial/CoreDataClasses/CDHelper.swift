@@ -62,6 +62,22 @@ class CDHelper : NSObject  {
         moc.persistentStoreCoordinator = self.coordinator
         return moc
     }()
+    
+    
+    ///When importing data, you should use a managed object context that does not run on the main thread. It is recommended that you use a context existing solely for importing data. This ensures there’s no chance it will block the queue of another context—most importantly, the main queue context. An import context can use the same persistent store coordinator as another context.
+
+    ///The import context is implemented in the same way as the foreground context; however, it will have a different concurrency type. You have three concurrency types to choose from when configuring an NSManagedObjectContext:
+    /// MainQueueConcurrencyType should be used when you want the context to operate on the main thread. Any heavy work performed in this queue may slow down or even freeze the user interface. You need at least one context working in the foreground to update user interface elements.
+    ///PrivateQueueConcurrencyType should be used when you don’t want the context to operate on the main thread. This is an ideal concurrency type for potentially heavy work, such as saving or importing data. Any context with a PrivateQueueConcurrencyType should only be sent messages using performBlock or performBlockAndWait. Use performBlockAndWait if you need the block to return before continuing; otherwise, use performBlock. If you call performBlockAndWait on a context running on the main thread, it blocks the main thread.
+    ///ConfinementConcurrencyType is a deprecated option, which you should avoid. This legacy option required you to have a separate context for every thread and a managed object context could only be used on the thread or queue that created it.
+    
+    lazy var importContext: NSManagedObjectContext = {
+        let moc = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+        moc.persistentStoreCoordinator = self.coordinator
+        return moc
+    }()
+    
+    
 
     // MARK: - MODEL
     ///The model variable returns an instance of NSManagedObjectModel. It is initialized based on the path to the model file. If a model file is not found, the application terminates.
@@ -131,6 +147,12 @@ class CDHelper : NSObject  {
             CDMigration.shared.migrateStoreIfNecessary(storeURL: _localStoreURL, destinationModel: self.model)
         }
         _ = self.localStore
+        
+        //This triggers a test of the localStore to see whether it needs to import default data.
+        if let _localStoreURL = self.localStoreURL {
+            CDImport.shared.checkIfDefaultDataNeedsImporting(url: _localStoreURL, type:
+        NSSQLiteStoreType)
+        } else {print("ERROR getting localStoreURL in \(#function)")}
     }
     
     //MARK: Adding the Saving Section

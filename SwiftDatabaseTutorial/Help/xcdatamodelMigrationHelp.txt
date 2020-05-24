@@ -30,7 +30,7 @@ Sometimes, you need more control than what lightweight migration offers. Let’s
 
 When the persistent store option NSInferMappingModelAutomaticallyOption is true (1), Core Data still checks to see whether there are any model-mapping files it should use before trying to infer automatically. It is recommended that you disable this setting while you’re testing a mapping model. This way, you can be certain that the mapping model is being used and is functioning correctly.
 
-Update Groceries as follows to disable automatic model mapping:
+Update SwiftDatabaseTutorial as follows to disable automatic model mapping:
 
 1. Set the NSInferMappingModelAutomaticallyOption option in the localStore variable of CDHelper.swift to false by changing the 1 to a 0.
 

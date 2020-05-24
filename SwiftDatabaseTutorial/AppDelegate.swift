@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ///Fetch Request Templates
     ///Determining the correct predicate format to use for every fetch can become laborious. Thankfully, the Xcode Data Model Designer supports predefining fetch requests. These reusable templates are easier to configure than predicates and they reduce repeated code. Fetch request templates are configured using a series of drop-down boxes and fields specific to the application’s model. Unfortunately, given their simplicity they aren’t as powerful as predicates. If you need features such as custom AND/OR combinations, you have to revert to predicate programming.
 
-    ///Update Groceries as follows to create a fetch request template:
+    ///Update SwiftDatabaseTutorial as follows to create a fetch request template:
 
     ///1. Select Model.xcdatamodeld.
 

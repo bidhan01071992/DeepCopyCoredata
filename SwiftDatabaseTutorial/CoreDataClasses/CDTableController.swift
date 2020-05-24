@@ -10,6 +10,14 @@ import Foundation
 import UIKit
 import CoreData
 
+///This claass is responsible when we want to fetch data from coredata using fetch result controller from a certain entity
+///The tableview controller will be a subclass of the CDTablecontroller and it will pass the Entity. For reference please check prepareTVC. Inside that all need to do is override properties like entity, sort filter etc. and configureCell method need to be overridden to affect the Ui changes of the tableview cell.
+///
+///
+///The perform fetch method should be called in viewdid appear which will fetch the data from the coredata to display in tableview.
+///
+///If we make some changed to the databse from someplace else we have to post "SomethingChanged" notification which will call perform fetch.
+
 class CDTableController<T>: UITableViewController, NSFetchedResultsControllerDelegate where T: NSManagedObject {
     
     // MARK: - CELL CONFIGURATION

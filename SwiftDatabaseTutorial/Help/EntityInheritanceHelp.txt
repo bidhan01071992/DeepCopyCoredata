@@ -41,7 +41,7 @@ With the new parent and child entities in place, it’s time to link them to the
 
 4. Rename newRelationship in the Item entity to locationAtHome.
 
-Update Groceries as follows to configure the location at shop relationships:
+Update SwiftDatabaseTutorial as follows to configure the location at shop relationships:
 
 1. Hold down Control while dragging a line from the LocationAtShop entity to the Item entity.
 
