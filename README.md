@@ -1,12 +1,8 @@
-# CoreaData
-Everything about Coredata
+# DeepCopyCoreaData
+# Prerequisite - Need to understand coredata same code has been used here to do deep copy
 
 
-To learn this we have to go by release after release.
-
-Every method is written with proper comment and description and help.txt file is also there.
-
-check the model version also to learn gradually.
+Release 6.0 support deep copy from existing SQL store. This one complecated type of coredata deep copy. It needs a lot of customization based on the schema of the datamodel.
 
 
-Learnt from "Learning Core Data for iOS with Swift: A Hands-On Guide to Building Core Data Applications, Second Edition"
+
