@@ -65,7 +65,7 @@ class CDImport : NSObject, XMLParserDelegate {
                 // Reserved for import code
                 // Import data
                 //When the import alert is displayed, the user can tap Skip to bypass the import or tap Import to proceed with loading default data. The code required to trigger an import with the Import button can now be added to the checkIfDefaultDataNeedsImporting function.
-                if let url = Bundle.main.url(forResource: "preload", withExtension: "xml") {
+             /*   if let url = Bundle.main.url(forResource: "preload", withExtension: "xml") {
                     //performBlock is asynchronous, in that it returns immediately, and the block is executed at some time in the future, on some undisclosed thread. All blocks given to the MOC via performBlock will execute in the order they were added.
 
                     //performBlockAndWait is synchronous, in that the calling thread will wait until the block has executed before returning. Whether the block runs in some other thread, or runs in the calling thread is not all that important, and is an implementation detail that can't be trusted.
@@ -73,7 +73,20 @@ class CDImport : NSObject, XMLParserDelegate {
                         print("Attempting preload.xml Import...")
                         self.importFromXML(url: url)
                     }
-                } else {print("preload.xml not found")}
+                    
+                    
+                    
+                } else {print("preload.xml not found")}   */
+                
+                
+                //Finally, the triggerDeepCopy function needs to be called instead of importFromXML when the user taps the Import button. This means the checkIfDefaultDataNeedsImporting function needs updating,
+                CDHelper.shared.importContext.perform {
+                    //print("Attempting DefaultData.xml Import...")
+                    //self.importFromXML(url)
+                    print("Attempting DefaultData.sqlite Import...")
+                    CDImport.triggerDeepCopy(sourceContext: CDHelper.shared.sourceContext, targetContext: CDHelper.shared.importContext, mainContext: CDHelper.shared.context)
+                }
+                
 
                 // Set the data as imported
                 if let store = CDHelper.shared.localStore {
@@ -261,5 +274,233 @@ class CDImport : NSObject, XMLParserDelegate {
             } else {print("ERROR: \(#function) could not find any uniqueAttributes")}
         } else {print("ERROR: \(#function) could not find an entityName")}
         return ""
+    }
+    
+    ///Copying a Unique Object
+    ///
+    ///
+    ///The next function required is copyUniqueObject. This function is responsible for ensuring a unique copy of an object exists in the target context. Technically, this function does not copy a managed object. Instead, it creates a new object in the target context and then copies the attribute values from the source object to the new object. As discussed in the previous chapter, the insertUniqueObject function is used to ensure only unique objects are inserted. If the object already exists, this function just returns the existing object. Note that relationships are not copied in this function because they need to be copied in another way.
+    
+    class func copyUniqueObject (sourceObject:NSManagedObject, targetContext:NSManagedObjectContext) -> NSManagedObject? {
+
+        if let entityName = sourceObject.entity.name {
+
+            if let uniqueAttributes = CDImport.selectedUniqueAttributesForEntity(entityName: entityName) {
+
+                // PREPARE unique attributes to copy
+                var uniqueAttributesFromSource:[String:Any] = [:]
+                for uniqueAttribute in uniqueAttributes {
+                    uniqueAttributesFromSource[uniqueAttribute] = sourceObject.value(forKey: uniqueAttribute)
+                }
+
+                // PREPARE additional attributes to copy
+                var additionalAttributesFromSource:[String:Any] = [:]
+                let attributesByName:[String:Any?] = sourceObject.entity.attributesByName
+                    for (additionalAttribute, _) in attributesByName {
+                        additionalAttributesFromSource[additionalAttribute] = sourceObject.value(forKey: additionalAttribute)
+                    }
+
+                // COPY attributes to new object
+                let copiedObject = CDOperation.insertUniqueObject(entityName: entityName, context: targetContext, uniqueAttributes: uniqueAttributesFromSource, additionalAttributes: additionalAttributesFromSource)
+
+                return copiedObject
+            } else {print("ERROR: \(#function) could not find any selected unique attributes for the '\(entityName)' entity")}
+        } else {print("ERROR: \(#function) could not find an entity name for the given object '\(sourceObject)'")}
+        return nil
+    }
+    
+    ///Establishing a To-One Relationship
+    ///The next function required is establishToOneRelationship. This function is responsible for establishing a To-One relationship by name, from one object to another. If the relationship already exists, the relationship creation is skipped.
+    ///
+    ///
+    ///Establishing a To-One relationship requires a single line of code. It is established by setting the value of the relationship’s key-value pair on an object. The relationship name is the key, and the related object is the value. You only need to set a relationship in one direction; the inverse is implied by the managed object model.
+    ///
+    ///The final part of the establishToOneRelationship function is the important cleanup task that removes references to the specified objects from each context. By calling refreshObject for each object after a context save, the managed objects are faulted. This removes the objects from memory, thus breaking strong reference cycles that would otherwise keep unneeded objects around wasting resources. Without this step, importing from a persistent store would be no better than importing from XML, as all the source data would be loaded in memory. Although it can be resource intensive to call save so frequently, it keeps the memory overhead low. In addition, the process occurs in the background, so it won’t impact the user interface negatively. It will, however, refresh the visible table view cells onscreen.
+    
+    class func establishToOneRelationship (relationshipName:String,from object:NSManagedObject, to relatedObject:NSManagedObject) {
+
+        // SKIP establishing an existing relationship
+        if object.value(forKey: relationshipName) != nil {
+            print("SKIPPED \(#function) because the relationship already exists")
+            return
+        }
+
+        if let targetContext = object.managedObjectContext {
+
+            // ESTABLISH the relationship
+            object.setValue(relatedObject, forKey: relationshipName)
+            print("    A copy of \(CDImport.objectInfo(object: object)) is related via To-One \(relationshipName) relationship to \(CDImport.objectInfo(object: relatedObject))")
+
+            // REMOVE the relationship from memory after it is committed to disk
+            CDHelper.save(moc: targetContext)
+            targetContext.refresh(object, mergeChanges: false)
+            targetContext.refresh(relatedObject, mergeChanges: false)
+        } else {print("ERROR: \(#function) could not get a targetContext")}
+    }
+    
+    ///Establishing a To-Many Relationship
+    ///The next function required is establishToManyRelationship, which is responsible for establishing a To-Many relationship from an object. It is expected that the object passed to this function is from the deep copy target context. The given NSMutableSet should contain objects from the source context. The function creates missing objects required as a part of the new relationship in the target context.
+    ///
+    ///A To-Many relationship is established by adding an object to another object’s NSMutableSet that represents a particular relationship. The NSMutableSet is accessed through the object’s key-value pair. The relationship name is the key, and the NSMutableSet is the value. An NSMutableSet can only contain unique objects, so there is no chance of accidentally duplicating a relationship from the same object.
+    
+    class func establishToManyRelationship (relationshipName:String,from object:NSManagedObject, sourceSet:NSMutableSet) {
+
+        // SKIP establishing an existing relationship
+        if object.value(forKey: relationshipName) != nil {
+            print("SKIPPED \(#function) because the relationship already exists")
+            return
+        }
+
+        if let targetContext = object.managedObjectContext {
+
+            let targetSet = object.mutableSetValue(forKey: relationshipName)
+
+            targetSet.enumerateObjects({ (relatedObject, stop) -> Void in
+
+                if let theRelatedObject = relatedObject as? NSManagedObject {
+
+                    if let copiedRelatedObject = CDImport.copyUniqueObject(sourceObject: theRelatedObject, targetContext: targetContext) {
+
+                        targetSet.add(copiedRelatedObject)
+                        print("    A copy of \(CDImport.objectInfo(object: object)) is related via To-Many \(relationshipName) relationship to \(CDImport.objectInfo(object: copiedRelatedObject))")
+
+                        // REMOVE the relationship from memory after it is committed to disk
+                        CDHelper.save(moc: targetContext)
+                        targetContext.refresh(object, mergeChanges: false)
+                        targetContext.refresh(theRelatedObject, mergeChanges: false)
+                    } else {print("ERROR: \(#function) could not get a copiedRelatedObject")}
+                } else {print("ERROR: \(#function) could not get theRelatedObject")}
+            })
+        } else {print("ERROR: \(#function) could not get a targetContext")}
+    }
+    
+    ///Establishing an Ordered To-Many Relationship
+    ///The next function required is establishOrderedToManyRelationship, which is responsible for establishing an Ordered To-Many relationship from an object. It is expected that the object passed to this function is from the deep copy target context. The given NSMutableOrderedSet should contain objects from the source context. The function creates missing objects required as a part of the new relationship in the target context.
+    ///
+    ///
+    ///An Ordered To-Many relationship is established by adding one object to another object’s NSMutableOrderedSet that represents a particular relationship. The NSMutableOrderedSet is accessed through the object’s key-value pair. The relationship name is the key, and the NSMutableOrderedSet is the value. An NSMutableOrderedSet can only contain unique objects, so there is no chance of accidentally duplicating a relationship from the same object. The order of the set in the target context needs to match the order of the set from the source context. The order of the source set is maintained as the equivalent objects are added to the target object’s ordered set in the order they are found.
+    
+    class func establishOrderedToManyRelationship (relationshipName:String,from object:NSManagedObject, sourceSet:NSMutableOrderedSet) {
+
+        // SKIP establishing an existing relationship
+        if object.value(forKey: relationshipName) != nil {
+            print("SKIPPED \(#function) because the relationship already exists")
+            return
+        }
+
+        if let targetContext = object.managedObjectContext {
+
+            let targetSet = object.mutableOrderedSetValue(forKey: relationshipName)
+
+            targetSet.enumerateObjects { (relatedObject, index, stop) -> Void in
+
+                if let theRelatedObject = relatedObject as? NSManagedObject {
+
+                    if let copiedRelatedObject = CDImport.copyUniqueObject(sourceObject: theRelatedObject, targetContext: targetContext) {
+
+                        targetSet.add(copiedRelatedObject)
+                        print("    A copy of \(CDImport.objectInfo(object: object)) is related via Ordered To-Many \(relationshipName) relationship to \(CDImport.objectInfo(object: copiedRelatedObject))'")
+
+                        // REMOVE the relationship from memory after it is committed to disk
+                        CDHelper.save(moc: targetContext)
+                        targetContext.refresh(object, mergeChanges: false)
+                        targetContext.refresh(theRelatedObject, mergeChanges: false)
+                    } else {print("ERROR: \(#function) could not get a copiedRelatedObject")}
+                } else {print("ERROR: \(#function) could not get theRelatedObject")}
+            }
+        } else {print("ERROR: \(#function) could not get a targetContext")}
+    }
+    
+    ///Copying Relationships
+    ///The next function required is copyRelationshipsFromObject, which is responsible for copying all relationships from an object in the source context to an equivalent object in the target context. This function is what the other functions implemented so far have been building up to.
+    ///
+    ///
+    ///The first task this function performs is to ensure there is an equivalent object in the target context. Referred to as the copiedObject, this object is created as required using the previously implemented copyUniqueObject function. If it still doesn’t exist after a copy is attempted, this function returns prematurely.
+    ///
+    ///To copy relationships, the function works out what relationships exist on the source object using sourceObject.entity.relationshipsByName. This dictionary is then iterated to find valid relationships. Provided the relationship exists, the equivalent relationship is recreated from the copiedObject. Before copying a relationship, its type is first determined. For To-Many or Ordered To-Many relationships, the appropriate source set is passed to the appropriate “copy To-Many” function. For a To-One relationship, the object to be related is copied to the target context before the appropriate function is called to establish the relationship.
+    
+    class func copyRelationshipsFromObject(sourceObject:NSManagedObject, to targetContext:NSManagedObjectContext) {
+
+        if let copiedObject = CDImport.copyUniqueObject(sourceObject: sourceObject, targetContext: targetContext) {
+
+            let relationships = sourceObject.entity.relationshipsByName // [String : NSRelationshipDescription]
+
+            for (_, relationship) in relationships {
+
+                if relationship.isToMany && relationship.isOrdered {
+
+                    // COPY To-Many Ordered Relationship
+                    let sourceSet = sourceObject.mutableOrderedSetValue(forKey: relationship.name)
+                    CDImport.establishOrderedToManyRelationship(relationshipName: relationship.name, from: copiedObject, sourceSet: sourceSet)
+
+                } else if relationship.isToMany && relationship.isOrdered == false {
+
+                    // COPY To-Many Relationship
+                    let sourceSet = sourceObject.mutableSetValue(forKey: relationship.name)
+                    CDImport.establishToManyRelationship(relationshipName: relationship.name, from: copiedObject, sourceSet: sourceSet)
+
+                } else {
+
+                    // COPY To-One Relationship
+                    if let relatedSourceObject = sourceObject.value(forKey: relationship.name) as? NSManagedObject {
+
+                        if let relatedCopiedObject = CDImport.copyUniqueObject(sourceObject: relatedSourceObject, targetContext: targetContext) {
+
+                            CDImport.establishToOneRelationship(relationshipName: relationship.name, from:copiedObject, to: relatedCopiedObject)
+
+                        } else {print("ERROR: \(#function) could not get a relatedCopiedObject")}
+                    } else {print("ERROR: \(#function) could not get a relatedSourceObject")}
+                }
+            }
+        } else {print("ERROR: \(#function) could not find or create an object to copy relationships to.")}
+    }
+    
+    
+    ///Deep Copy Entities
+    ///The next function required is deepCopyEntities, which is responsible for copying all objects from the specified entities in one context to another context. There are several ways this function could be implemented, and the user experience would differ with each option. If you search the Internet for “core data programming guide: efficiently importing data,” you should find an Apple guide that discusses techniques for importing data. It says that when possible it is more efficient to copy all the objects in a single pass and then fix up relationships later. Depending on the application, this may not be feasible. An import can take a long time, and if the relationships are missing even for a few seconds, the user might assume the application has a bug. The options open to you to combat this issue are as follows (your selection varies depending on the nature of your application):
+    ///
+    ///
+    ///Prevent the user from using the application, partially or wholly. During the import, you could display a progress indicator. If the import takes a long time, this may annoy the user. Depending on the application, you may instead only disable partial functionality, until the data is ready.
+    ///
+    /// Import all objects first and then establish relationships. The user might see half-imported data with little or no established relationships. Depending on the data model, this may or may not be acceptable. Consider prioritizing the order the entities are imported to make this option more palatable.
+    ///
+    /// Import objects and relationships together. Although this is certainly not as efficient as the other options, the entire deep copy process is run in the background so the user impact is minimal to nonexistent. This is a more resource intensive task than the alternative; however, the application remains usable.
+    ///
+    ///CDImporter is configured to import objects and relationships together and a notification is sent each time an entity finishes processing. This ensures that table views relying on relationships for their sections are updated appropriately.
+    
+    class func deepCopyEntities(entities:[String], from sourceContext:NSManagedObjectContext, to targetContext:NSManagedObjectContext) {
+
+        for entityName in entities {
+            print("DEEP COPYING '\(entityName)' objects to target context...")
+            if let sourceObjects = CDOperation.objectsForEntity(entityName: entityName, context: sourceContext, filters: nil, sorts: nil) as? [NSManagedObject] {
+
+                for sourceObject in sourceObjects {
+                    print("DEEP COPYING OBJECT: \(CDImport.objectInfo(object: sourceObject))")
+                    _ = CDImport.copyUniqueObject(sourceObject: sourceObject, targetContext: targetContext)
+                    CDImport.copyRelationshipsFromObject(sourceObject: sourceObject, to: targetContext)
+                }
+            } else {print("ERROR: \(#function) could not find any sourceObjects")}
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SomethingChanged"), object: nil)
+        }
+    }
+    
+    ///TRIGGERING A DEEP COPY
+    ///As mentioned at the beginning of this chapter, a deep copy is demonstrated using the existing default data store. The default data store DefaultData.sqlite was previously configured as the initial store during setupCoreData via setDefaultDataStoreAsInitialStore. This function call has since been commented out, so on new installations an import from XML would be triggered instead. This is due to the call to checkIfDefaultDataNeedsImporting in the setupCoreData function that triggers an alert giving the option to import with importFromXML. To trigger a deep copy from a persistent store instead, a new function called triggerDeepCopy is required in CDImporter.swift.
+    ///
+    ///
+    ///The triggerDeepCopy function calls deepCopyEntities using performBlock. This has the effect of performing the deep copy in the background because sourceContext has a private queue concurrency type. When the copy is finished a final interface refresh is triggered via a notification.
+    
+    class func triggerDeepCopy (sourceContext:NSManagedObjectContext, targetContext:NSManagedObjectContext, mainContext:NSManagedObjectContext) {
+
+        sourceContext.perform {
+
+            CDImport.deepCopyEntities(entities: ["Item","Unit","LocationAtHome", "LocationAtShop"], from: sourceContext, to: targetContext)
+
+            mainContext.perform {
+                // Trigger interface refresh
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SomethingChanged"), object: nil)
+            }
+            print("*** FINISHED DEEP COPY FROM DEFAULT DATA PERSISTENT STORE ***")
+        }
     }
 }

@@ -84,7 +84,7 @@ class CDOperation {
     ///
     ///To create a compound NOT predicate, pass .NotPredicateType as the type. This specifies that none of the criteria of any subpredicates are allowed to be met. In SQL terms, this is similar to the WHERE clause in the statement SELECT * FROM MyTable WHERE FirstName NOT IN ('Bidhan') AND LastName NOT IN ('Roy').
     
-    class func predicateForAttributes (attributes:[String:AnyObject], type:NSCompoundPredicate.LogicalType ) -> NSPredicate? {
+    class func predicateForAttributes (attributes:[String:Any], type:NSCompoundPredicate.LogicalType ) -> NSPredicate? {
 
         // Create an array of predicates, which will be later combined into a compound predicate.
         var predicates:[NSPredicate]?
@@ -123,7 +123,7 @@ class CDOperation {
     ///
     ///
     ///The uniqueObjectWithAttributeValuesForEntity function returns the first managed object it finds that matches the specified predicate. An existing objectsForEntity function of CDOperation.swift is leveraged to achieve this. If no matching objects are found, nothing is returned.
-    class func uniqueObjectWithAttributeValuesForEntity(entityName:String, context:NSManagedObjectContext, uniqueAttributes:[String:AnyObject]) -> NSManagedObject? {
+    class func uniqueObjectWithAttributeValuesForEntity(entityName:String, context:NSManagedObjectContext, uniqueAttributes:[String:Any]) -> NSManagedObject? {
 
         let predicate = CDOperation.predicateForAttributes(attributes: uniqueAttributes, type: .and)
         if let objects = CDOperation.objectsForEntity(entityName: entityName, context: context, filters: predicate, sorts: nil)
@@ -142,7 +142,7 @@ class CDOperation {
     ///
     ///The insertUniqueObject function returns an NSManagedObject with its attributes populated from the dictionaries of attribute values given to the function. The insertNewObjectForEntityForName returns an AnyObject object, so the insertUniqueObject function needs to cast this to NSManagedObject. If this cast fails, an error is shown in the console log and a default NSManagedObject is returned. This is an extremely unlikely scenario; however, it must be included for the code to compile.
     
-    class func insertUniqueObject(entityName:String, context:NSManagedObjectContext, uniqueAttributes:[String:AnyObject], additionalAttributes:[String:AnyObject]?) -> NSManagedObject {
+    class func insertUniqueObject(entityName:String, context:NSManagedObjectContext, uniqueAttributes:[String:Any], additionalAttributes:[String:Any]?) -> NSManagedObject {
 
         // Return existing object after adding the additional attributes.
         if let existingObject = CDOperation.uniqueObjectWithAttributeValuesForEntity(entityName: entityName, context: context, uniqueAttributes: uniqueAttributes) {
