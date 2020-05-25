@@ -206,4 +206,60 @@ class CDImport : NSObject, XMLParserDelegate {
             }
         }
     }
+    
+    //Mark: DeepCopy
+    
+    //ENHANCING CDIMPORTER
+    //To enable deep copy, the CDImporter class is enhanced to allow the complicated procedure of copying a managed object. The complexity comes from relationship copies, as each relationship must be evaluated to find related objects. The three relationship types (To-One, To-Many, and Ordered To-Many) must also be supported. As complicated as this process can be, by breaking it down into understandable chunks, it should become easier to understand. This breakdown is the reason many functions are required to perform a deep copy.
+    
+    ///Identifying Unique Attributes
+    ///To prevent the creation of duplicate objects, you need to predefine a list of attributes that should be considered unique for an entity.
+    ///
+    ///
+    ///When you apply this approach to your own applications, you need to carefully consider what about each object makes it unique. Examples of unique identifiers are email addresses, product codes, object IDs, and so on.
+    ///
+    ///The selectedUniqueAttributesForEntity function optionally returns an array of strings. Each string represents an attribute considered unique for the given entity. If multiple unique attributes are specified for an entity, both must be matched for an object to be considered unique.
+    class func selectedUniqueAttributesForEntity (entityName:String) -> [String]? {
+
+        // Return an array of attribute names to be considered unique for an entity.
+        // Multiple unique attributes are supported.
+        // Only use attributes whose values are alphanumeric.
+
+        switch (entityName) {
+            case "Item"          :return ["name"]
+            case "Unit"          :return ["name"]
+            case "LocationAtHome":return ["storedIn"]
+            case "LocationAtShop":return ["aisle"]
+            default:
+                break;
+        }
+        return nil
+    }
+    
+    ///Object Info
+    ///
+    ///A new objectInfo function is used to cut down repetitive code otherwise required in most of the upcoming deep copy functions. By passing a managed object to this function, you get back a string containing the object’s entity name, unique attribute, and unique attribute value information.
+    
+    class func objectInfo (object:NSManagedObject) -> String {
+
+        if let entityName = object.entity.name {
+
+            var attributes:String = ""
+
+            if let uniqueAttributes = CDImport.selectedUniqueAttributesForEntity(entityName: entityName) {
+
+                for attribute in uniqueAttributes {
+                    if let valueForKey = object.value(forKey: attribute) as? NSObject {
+                        attributes = "\(attributes)\(attribute) \(valueForKey)"
+                    }
+                }
+
+                // trim trailing space
+                attributes = attributes.trimmingCharacters(in: .whitespaces)
+
+                return "\(entityName) with \(attributes)"
+            } else {print("ERROR: \(#function) could not find any uniqueAttributes")}
+        } else {print("ERROR: \(#function) could not find an entityName")}
+        return ""
+    }
 }

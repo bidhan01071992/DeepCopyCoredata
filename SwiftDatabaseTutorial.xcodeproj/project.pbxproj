@@ -43,6 +43,8 @@
 		847E82AE2477AD9900DBCAFA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */; };
 		847E82AF2477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */; };
 		847E82B02477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */; };
+		847EB4F0247A9363001D490A /* DeepCopyHelp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 847EB4EF247A9363001D490A /* DeepCopyHelp.txt */; };
+		847EB4F2247A9993001D490A /* DefaultData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 847EB4F1247A9993001D490A /* DefaultData.sqlite */; };
 		84CAFA9E2477C2F600D39A33 /* CoreDataTableView.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */; };
 		84CAFAA12477E0E900D39A33 /* CDTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CAFAA02477E0E900D39A33 /* CDTableController.swift */; };
 /* End PBXBuildFile section */
@@ -92,6 +94,8 @@
 		847E82A62477AD9900DBCAFA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		847E82A72477AD9900DBCAFA /* LocationAtHome+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataClass.swift"; sourceTree = "<group>"; };
 		847E82A82477AD9900DBCAFA /* LocationAtHome+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationAtHome+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847EB4EF247A9363001D490A /* DeepCopyHelp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeepCopyHelp.txt; sourceTree = "<group>"; };
+		847EB4F1247A9993001D490A /* DefaultData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DefaultData.sqlite; sourceTree = "<group>"; };
 		84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreDataTableView.txt; sourceTree = "<group>"; };
 		84CAFAA02477E0E900D39A33 /* CDTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTableController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +181,7 @@
 		843FDC5524752F95002E1D7C /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				847EB4F1247A9993001D490A /* DefaultData.sqlite */,
 				847E82A12477AD9900DBCAFA /* LocationAtShop+CoreDataClass.swift */,
 				847E82A22477AD9900DBCAFA /* LocationAtShop+CoreDataProperties.swift */,
 				847E82A32477AD9900DBCAFA /* Location+CoreDataClass.swift */,
@@ -223,6 +228,7 @@
 				847E828B24769E8D00DBCAFA /* CoreDataRelationship.Txt */,
 				847E829F2477AAFD00DBCAFA /* EntityInheritanceHelp.txt */,
 				84CAFA9D2477C2F600D39A33 /* CoreDataTableView.txt */,
+				847EB4EF247A9363001D490A /* DeepCopyHelp.txt */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -286,10 +292,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				843FDC482475274B002E1D7C /* LaunchScreen.storyboard in Resources */,
+				847EB4F2247A9993001D490A /* DefaultData.sqlite in Resources */,
 				846A89B92476216900E7A3FD /* xcdatamodelMigrationHelp.txt in Resources */,
 				84009BD82476384A00B2C407 /* datamodelMappingAdvancedHelp.txt in Resources */,
 				847B6BDC247A498200176665 /* preload.xml in Resources */,
 				843FDC452475274B002E1D7C /* Assets.xcassets in Resources */,
+				847EB4F0247A9363001D490A /* DeepCopyHelp.txt in Resources */,
 				843FDC4324752749002E1D7C /* Main.storyboard in Resources */,
 				847E828C24769E8D00DBCAFA /* CoreDataRelationship.Txt in Resources */,
 				84CAFA9E2477C2F600D39A33 /* CoreDataTableView.txt in Resources */,

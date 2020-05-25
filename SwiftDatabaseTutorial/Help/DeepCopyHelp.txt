@@ -1,0 +1,15 @@
+THE DEEP COPY PROCESS
+A deep copy involves copying managed objects and their relationships from one persistent store to another. Once an object has been copied, the relationships from its source object are evaluated to find related source objects. Those related source objects are then copied to the target store as required. Relationships in the source store are then replicated in the target store between the copied objects. As this cycle continues for each object, every relationship in all directions is eventually copied into the target persistent store. Needless to say, this is an intensive task and should only be run in the background.
+
+Deep copy works only when the source and target stores have the same managed object model. However, a separate coordinator and context are needed for the source and target stores. The contexts used for the source and target stores should also be separate from the main queue context.
+
+Copying an object to another context isn’t as straightforward as a copy-and-paste command. To copy an object, you actually need to create a new object in the target context and then copy all the attribute values from the source object to the new object. That leaves the relationships, which can’t be copied in the same way. If you were to copy a relationship the same way you copied an attribute value, you would end up with an illegal cross-store relationship between the copied object and object(s) in the source store. Instead of copying a relationship, a deep copy needs to identify related copied objects in the target context and then establish a relationship to them from the copied object.
+
+
+Before a relationship can be copied, checks are needed to ensure that objects required as a part of a copied relationship already exist in the target context. Objects that are missing in the target context are created on demand based on their equivalent source object.
+
+To-Many relationships present an interesting challenge and are a big part of the reason that a deep copy is a resource intensive task. A deep copy needs to iteratively check every object and all of its relationships, so this process can take a long time. The other factor to account for is ordered and unordered relationships. An ordered relationship is, under the covers, an NSMutableOrderedSet of related objects. An unordered relationship is an NSMutableSet of related objects, so the deep copy code needs to reflect this
+
+/////////////////////////////////////////////////////////////////////////
+
+Core Data stack is a term referring to the combination of persistent store, persistent store coordinator, managed object model, and managed object context. To perform a deep copy from a source store, you need a separate Core Data stack from the one that already exists. This has the effect of providing a source and target context, which is where the copies will be performed. The only commonality between the two stacks is that they use the same managed object model.

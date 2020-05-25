@@ -1,12 +1,12 @@
 <Items>
     <Item name="Bubble Bath - Kids" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 6"/>
-    <Item name="Bubble Bath - Prents" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 6"/>
-    <Item name="Bubble Bath - sample1" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 6"/>
-    <Item name="Bubble Bath - sample2" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 7"/>
-    <Item name="Bubble Bath - sample3" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 7"/>
-    <Item name="Bubble Bath - sample4" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 6"/>
-    <Item name="Bubble Bath - sample5" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 9"/>
-    <Item name="Bubble Bath - sample6" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 9"/>
-    <Item name="Bubble Bath - sample7" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 9"/>
-    <Item name="Bubble Bath - sample8" unit = "2" locationAtHome = "Bathroom" locationAtShop = "Aisle 12"/>
+    <Item name="Bubble Bath - Prents" unit = "2" locationAtHome = "Bathroom1" locationAtShop = "Aisle 6"/>
+    <Item name="Bubble Bath - sample1" unit = "2" locationAtHome = "Bathroom2" locationAtShop = "Aisle 6"/>
+    <Item name="Bubble Bath - sample2" unit = "2" locationAtHome = "Bathroom3" locationAtShop = "Aisle 7"/>
+    <Item name="Bubble Bath - sample3" unit = "2" locationAtHome = "Bathroom1" locationAtShop = "Aisle 7"/>
+    <Item name="Bubble Bath - sample4" unit = "2" locationAtHome = "Bathroom2" locationAtShop = "Aisle 6"/>
+    <Item name="Bubble Bath - sample5" unit = "2" locationAtHome = "Bathroom3" locationAtShop = "Aisle 9"/>
+    <Item name="Bubble Bath - sample6" unit = "2" locationAtHome = "Bathroom1" locationAtShop = "Aisle 9"/>
+    <Item name="Bubble Bath - sample7" unit = "2" locationAtHome = "Bathroom2" locationAtShop = "Aisle 9"/>
+    <Item name="Bubble Bath - sample8" unit = "2" locationAtHome = "Bathroom3" locationAtShop = "Aisle 12"/>
 </Items>

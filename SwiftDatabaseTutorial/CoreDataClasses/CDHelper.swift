@@ -38,6 +38,22 @@ class CDHelper : NSObject  {
         return nil
     }()
     
+    ///Configuring the Source Store for deep copy
+    ///The same approach used to configure the existing store is used again to configure the source store. This means a variable that returns a URL to the source store is first required.
+    ///Copy LocalStore.sqlite to the desktop and rename it to DefaultData.sqlite.
+    ///
+    ///
+    ///Drag DefaultData.sqlite from your desktop into the Data Model group in Xcode. Ensure Copy items if needed and the target are checked before clicking Finish.
+    
+    lazy var sourceStoreURL: URL? = {
+        if let url = Bundle.main.url(forResource: "DefaultData", withExtension: "sqlite") {
+            print("sourceStoreURL = \(url)")
+            return url
+        }
+        return nil
+    }()
+    
+    
     lazy var modelURL: URL = {
         let bundle = Bundle.main
 
@@ -60,6 +76,13 @@ class CDHelper : NSObject  {
     lazy var context: NSManagedObjectContext = {
         let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         moc.persistentStoreCoordinator = self.coordinator
+        return moc
+    }()
+    
+    ///Configuring the Source Context for deep copy
+    lazy var sourceContext: NSManagedObjectContext = {
+        let moc = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+        moc.persistentStoreCoordinator = self.sourceCoordinator
         return moc
     }()
     
@@ -88,6 +111,10 @@ class CDHelper : NSObject  {
     // MARK: - COORDINATOR
     ///The coordinator variable returns an instance of NSPersistentStoreCoordinator. It is initialized based on the model.
     lazy var coordinator: NSPersistentStoreCoordinator = {
+        return NSPersistentStoreCoordinator(managedObjectModel:self.model)
+    }()
+    ///Configuring the Source Coordinator for deep copy it is same as existing coordinator
+    lazy var sourceCoordinator:NSPersistentStoreCoordinator = {
         return NSPersistentStoreCoordinator(managedObjectModel:self.model)
     }()
 
@@ -131,6 +158,23 @@ class CDHelper : NSObject  {
             return nil
         }
     }()
+    ///Configurimg the store for deep copy
+    ///
+    ///
+    ///The next step is to implement the sourceStore variable. This variable is responsible for adding the source store to the source coordinator. Because the source store lives in the application bundle, it must be loaded as read-only. This means that if the model is upgraded in the future, you need to ship a pre-upgraded version of DefaultData.sqlite with it.
+    
+    lazy var sourceStore: NSPersistentStore? = {
+
+        let options:[AnyHashable:Any] = [NSReadOnlyPersistentStoreOption:1]
+
+        var _sourceStore:NSPersistentStore?
+        do {
+            _sourceStore = try self.sourceCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: self.sourceStoreURL, options: options)
+            return _sourceStore
+        } catch {
+            return nil
+        }
+    }()
     
     //MARK: Adding the Setup Section
     ///With the Core Data Stack ready to go it’s time to implement the functions responsible for its initial setup.
@@ -146,6 +190,8 @@ class CDHelper : NSObject  {
         if let _localStoreURL = self.localStoreURL {
             CDMigration.shared.migrateStoreIfNecessary(storeURL: _localStoreURL, destinationModel: self.model)
         }
+        //For deep copy
+        _ = self.sourceStore
         _ = self.localStore
         
         //This triggers a test of the localStore to see whether it needs to import default data.
